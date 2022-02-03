@@ -1,0 +1,340 @@
+---
+title: "Taller 1"
+author: ''
+date: "1/28/2022"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+## Paquetes de interes
+packages = c("dslabs", "MASS", "scatterplot3d", "car", "plotly")
+
+## Se cargan o se instalan y cargan
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+      
+    }
+  }
+)
+```
+
+
+
+
+# Ejercicios para entregar
+
+
+### 1. Graficar los boxplots de la variable oleic vs region del dataset olive
+
+```{r olives}
+boxplot(olive$oleic~olive$region)
+```
+
+### 2. Los siguientes datos se extrajeron de la revista Motor Trend 1974 de Estados Unidos, resume el consumo y 10 aspectos de diseño y rendimiento de 32 automóviles (modelos 1973-74 ). Este conjunto de datos, que se llama mtcars, contiene 11 variables con 32 observaciones y está almacenado en R . Para poder trabajar con ellos, solo hace falta adjudicarle un nombre al objeto, como por ejemplo:
+
+
+```{r}
+a = mtcars
+head(a)
+
+```
+
+
+Las variables son las siguientes:
+
+*   mpg: Millas por galón de combustible
+*   cyl: Número de cilindros
+*   disp: Desplazamiento
+*   hp: Caballos de potencia
+*   drat: Relación del eje trasero
+*   wt: Peso (1000 lbs)
+*   qsec: Tiempo a 1/4 milla
+*   vs: V/S
+*   am: Transmisión (0 = automático, 1 = manual)
+*   gear: Número de marchas adelante
+*   carb: Número de carburadores
+
+Una vez cargado el conjunto de datos proceda a la resolución del cuestionario, añadiendo los chunks
+correspondientes.
+
+*   **Determine la media, la mediana, la moda y la desviación estándar de cada una de las variables. Se puede calcular a todas la variables? a cuales no? Justifique su respuesta**
+
+RTA: Estas estadísticas se pueden calcular para todas las variables (ya que están expresadas como números), sinembargo no tiene mucho sentido en los casos en que la variable es categórica (en este caso tal vez sólo la moda tendría interpretabilidad):
+
+```{r}
+# note que aunque se calculó la media de todas las variables, sabemos que no tiene mucho 
+# sentido hablar de la media de la variable *am*
+means = colMeans(a)
+means
+```
+
+A continuación se va a desarrollar una función para calcular la moda por columnas:
+
+```{r}
+
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+colModes <- function(dataframe){
+  
+  names = colnames(dataframe)
+  modes = c(1:length(names))
+  count = 0
+  
+  for (name in names){
+    modes[count] = getmode(dataframe[[name]])  
+    count = count + 1
+  } 
+  
+  df = data.frame(names, modes)
+  return(df)
+}
+
+colModes(a)
+
+```
+
+Ahora pasaremos al calculo de la desviasión estándar para todas las columnas (con una función):
+
+```{r}
+
+colSd <- function(dataframe){
+  
+  names = colnames(dataframe)
+  stard_deviation = c(1:length(names))
+  count = 0
+  
+  for (name in names){
+    stard_deviation[count] = sd(dataframe[[name]])  
+    count = count + 1
+  } 
+  
+  df = data.frame(names, stard_deviation)
+  return(df)
+}
+
+colSd(a)
+
+```
+
+
+*   ***Determinar qué variable presenta valores atípicos, ¿cómo los ha encontrado?***
+
+#### Hampel filter 
+
+El filtro Hampel se funciona de la siguiente forma, creamos un intervalo I tal que:
+
+$I = [mediana - 3 \cdot desviación\_absuluta\_mediana,\;\; mediana + 3 \cdot desviación\_absuluta\_mediana]$.
+
+Si el dato está fuera de este intervalo entonces se considera un outlier.
+También podríamos hacer algo parecido usando la media y la desviación estándar tal que así:
+
+$I = [media - 3 \cdot std\_dev, \;\; media + 3 \cdot std\_dev]$
+
+Sin embargo hacerlo con boxplot es mucho más fácil así:
+
+
+```{r}
+
+for (name in colnames(a)){
+  boxplot(a[[name]], main = name, sub="para detectar outliers")
+  
+}
+  
+```
+
+Vemos que HP tiene un outlier, WT tiene outliers, también QT y Carb.
+
+*   ***Hacer el histograma para cada una de las variable usando 5 intervalos. De nuevo, está gráfica es útil para todas las variables? justifique su respuesta.*** 
+
+```{r}
+histPerDataframeCol <- function(dataframe, nbreaks){
+  
+  names = colnames(a)
+  
+  for(name in names){
+    hist(dataframe[[name]], main=name, breaks = nbreaks, xlab = name)
+  }
+}
+
+histPerDataframeCol(a, 5)
+
+```
+
+
+Podemos ver que en algunos casos no es tan útil, como cuando una variable es categórica en este caso solo serviría como una gráfica de frecuencias para cada categoría (en caso de que hayan tantas categorías como barras en la gráfica). Pero es particularmente útil si la variable es continua (numérica) y hay bastantes datos, esto puede ser una forma aproximada de conocer la distribución de la variable.
+
+*   ***Realice una gráfica que incluya el diagrama de cajas de todas las variables de tal manera de que se puedan comparar.***
+
+```{r}
+boxplot(a)
+```
+
+### 3. Graficar una matriz de dispersion de tres variables del dataset olive, con la diagonal mostrando boxplots de las variables.
+
+
+
+```{r}
+install.packages("car")
+```
+
+
+```{r}
+
+olive_acids <- subset(olive, select = c(palmitic, palmitoleic, stearic))
+scatterplotMatrix(~ +., data = olive_acids, diagonal=list(method ="boxplot"))
+```
+### 4. Graficar un diagrama de dispersión en 3D, de tres variables numéricas del dataset olive graficando en colores diferentes las regiones. 
+
+
+```{r}
+fig <- plot_ly(x=olive$palmitic, y=olive$palmitoleic, z=olive$stearic, type="scatter3d", mode="markers",
+               color = olive$region)%>%
+       layout(title = 'Dispersión en 3D palmitic-palmitoleic-stearic',
+              scene = list(xaxis=list(title="palmitic"),
+                           yaxis=list(title="palmitoleic"),
+                           zaxis=list(title="stearic")))
+
+fig
+```
+
+
+### 5. Dados los siguientes pares de medidas sobre dos variables x1 y x2:
+
+**A) Grafique los datos como un diagrama de dispersión y calcule $s_{11}, s_{12}, s_{22}$. **
+
+```{r}
+x1 = c(-6, -3, -2, 1, 2, 5, 6, 8)
+x2 = c(-2, -3,  1, -1, 2, 1, 5, 3)
+
+plot(x1, x2, xlab = "x1", ylab = "x2", main = "Diagrama de dispersion x1 vs x2")
+```
+
+Ahora Obtenemos la matriz de covarianzas de esta forma:
+
+
+```{r}
+df = data.frame(x1, x2)
+cov(df)
+```
+
+**B) Usando $\tilde{x}_1 = x_1 cos(θ) + x_2 sin(θ)$ y $\tilde{x}_2 = −x_1 sin(θ) + x_2 cos(θ)$, calcule las medidas correspondientes sobre las variables $\tilde{x}_1$ y $\tilde{x}_2$, asumiendo que los ejes coordenados originales están rotados un ángulo de $\theta = 26$ grados.**
+
+
+```{r}
+rotate_points <- function(dataframe, angle){
+  
+  #asume que hay 2 columnas x1, x2 y que cada fila representa un punto en el espacio
+  rotation_vec = c(cos(angle*pi/180), sin(angle*pi/180), -sin(angle*pi/180), cos(angle*pi/180))
+  rotation_mat = matrix(rotation_vec, nrow = 2, ncol = 2)
+  
+  # extrae las columnas 1 y 2 del dataframe y las vuelve una matriz horizontal
+  matrix_points = t(as.matrix(dataframe[c(1,2)]))  
+                                                  
+  # rota todos los puntos con la matriz de rotación
+  rotated_vecs = t(rotation_mat %*% matrix_points)
+  
+  #un bonito df
+  rotated_vecs_df = data.frame(x1_rot = rotated_vecs[,1], x2_rot = rotated_vecs[,2])
+  
+  return(rotated_vecs_df)
+}
+
+df_rot = rotate_points(df, 26)
+print(df_rot)
+```
+
+
+**C) Usando las medidas $\tilde{x_1}$ y $\tilde{x_2}$ de (B), calcule las varianzas de muestra $\tilde{s}_{11}$ y $\tilde{s}_{22}$:** 
+
+
+```{r}
+s_rot = cov(df_rot)
+s_rot
+```
+
+**D) Considere el nuevo par de medidas $(x_1, x_2) = (4, −2)$. Transforme estas medidas en $\tilde{x}_1$ y $\tilde{x}_2$ como en (B) y calcule la distancia $d(O, P)$ del nuevo punto $P = (\tilde{x}_1, \tilde{x}_2)$ desde el origen $O = (0, 0)$, usando $d(O, P) = \sqrt{\frac{ \tilde{x}^{2}_{1} }{ \tilde{s}_{11} } + \frac{ \tilde{x}^{2}_{2} }{ \tilde{s}_{22} }}$ . Nota: Necesitará $\tilde{s}_{22}$ y $\tilde{s}_{11}$ de (C) ** 
+
+
+```{r}
+x1_new = c(4)
+x2_new = c(-2)
+
+df2 = data.frame(x1= x1_new, x2= x2_new)
+df2_rot = rotate_points(df2, 26)
+df2_rot
+```
+
+Ahora vamos a crear una función que retorna la distancia de cada punto con el origen o cualquier otro punto:
+
+```{r}
+
+dist_between_points_and_point <- function(dataframe, covs, vec){
+  
+  # extrae las columnas 1 y 2 del dataframe y las vuelve una matriz horizontal
+  matrix_points = t(as.matrix(dataframe[c(1,2)]))  
+  
+  # crea un vector con tantos ceros como puntos
+  distance = rep(0, dim(matrix_points)[2])
+  
+  
+  for (i in seq(1, dim(matrix_points)[2], by=1)){
+    distance[i] = sqrt( (matrix_points[1, i] - vec[1])^2/covs[1, 1]  + (matrix_points[2, i]- vec[2])^2/covs[2, 2] )
+  }
+  
+  return (distance)
+}
+
+origin = c(0,0)
+dist_between_points_and_point(df2_rot, s_rot, origin)
+
+```
+**E) Calcule la distancia desde $P = (4, −2)$ hasta el origen $O = (0, 0)$ usando $d(O, P ) = AAA$ y las expresiones para $a_{11}, a_{22}, y a_{12}$ de la página 35 del libro. Nota: necesitará $s_{11}, s_{22}, y s_{12}$ de (a). Compare la distancia calculada aquí con la distancia calculada usando los valores $\tilde{x_1}$ y $\tilde{x_2}$ en (d). (Dentro del error de redondeo, los números deben ser los mismos).**
+
+```{r}
+
+dist_between_origin_and_point <- function(x, angle, covs){
+  
+  s11 = covs[1,1]
+  s22 = covs[2,2]
+  s12 = covs[1,2]
+  
+  angle = angle*pi/180
+  
+  a11 = ((cos(angle)^2)/(cos(angle)^2)*s11+2*sin(angle)*cos(angle)*s12+(sin(angle)^2)*s22) +
+      ((sin(angle)^2)/(cos(angle)^2)*s22-2*sin(angle)*cos(angle)*s12+(sin(angle)^2)*s11)
+
+  
+  a12 = (cos(angle)*sin(angle))/((cos(angle)^2)*s11 + 2*sin(angle)*cos(angle)*s12 + (sin(angle)^2)*s22) - 
+    ((sin(angle)*cos(angle))/((cos(angle)^2)*s22 - 2*sin(angle)*cos(angle)*s12 + (sin(angle)^2)*s11))
+
+  
+  a22 = sin(angle)^2/( s11*(cos(angle)^2) + 2*sin(angle)*cos(angle)*s12 + s22*(sin(angle)^2) )
+  a22 = a22 - ( (cos(angle)^2)/ ( s22*(cos(angle)^2) - sin(angle)*cos(angle)*s12  + s11*sin(angle)^2) )
+  
+  
+  dist = sqrt( a11*(x[1]^2) + 2*a12*x[1]*x[2] + a22 *(x[2]^2) )
+  
+  return (dist)
+}
+
+x_new = c(4, -2)
+dist_between_origin_and_point(x_new, 26, s_rot)
+
+
+```
+
+
+
+
+
+
+
