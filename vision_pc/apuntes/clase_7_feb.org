@@ -1,0 +1,11 @@
+#+TITLE: Clase_7_feb
+#+AUTHOR: Dave Alsina
+
+
+[[Relaciones básicas entre pixeles]]
+
+    [[vecinos]]
+
+sea (x, y) el pixel central sus vecinos pueden ser:
+*   vecindad de 4 pixeles (pueden ser los de las esquinas o los de las diagonales)
+*   si hacemos una unión entre la vecindad diagonal y la de las esquianas obtenemos la vecindad de 8 pixeles
