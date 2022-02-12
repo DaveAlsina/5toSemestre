@@ -1,0 +1,7 @@
+*.swo
+*.swn
+*.swp
+*.svgz
+*.ipynb_checkpoints
+*.ipynb_checkpoints/*
+./**/**/.ipynb_checkpoints
