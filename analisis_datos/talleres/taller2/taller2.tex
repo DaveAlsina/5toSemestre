@@ -1,0 +1,250 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{taller 2}
+\author{}
+\date{\vspace{-2.5em}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={taller 2},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"plotly"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Installing package into '/home/dave/R/x86_64-pc-linux-gnu-library/3.6'
+## (as 'lib' is unspecified)
+\end{verbatim}
+
+\begin{verbatim}
+## also installing the dependencies 'curl', 'openssl', 'httr'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in install.packages("plotly"): installation of package 'curl' had non-
+## zero exit status
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in install.packages("plotly"): installation of package 'openssl' had
+## non-zero exit status
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in install.packages("plotly"): installation of package 'httr' had non-
+## zero exit status
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in install.packages("plotly"): installation of package 'plotly' had non-
+## zero exit status
+\end{verbatim}
+
+\hypertarget{taller-2}{%
+\subsection{Taller 2}\label{taller-2}}
+
+\hypertarget{las-siguientes-son-5-medidas-sobre-las-variables-x_1-x_2-x_3}{%
+\paragraph{\texorpdfstring{1. Las siguientes son 5 medidas sobre las
+variables
+\(x_1, x_2, x_3\):}{1. Las siguientes son 5 medidas sobre las variables x\_1, x\_2, x\_3:}}\label{las-siguientes-son-5-medidas-sobre-las-variables-x_1-x_2-x_3}}
+
+Calculamos las medias de cada variable:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\NormalTok{x2 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{x3 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(x1, x2, x3)}
+\NormalTok{mean }\OtherTok{=} \FunctionTok{colMeans}\NormalTok{(df)}
+\NormalTok{mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x1 x2 x3 
+##  6  8  2
+\end{verbatim}
+
+Calculamos la matriz \(S_n\) de los datos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OtherTok{=} \FunctionTok{cov}\NormalTok{(df)}
+\NormalTok{s}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       x1   x2    x3
+## x1  7.50  5.0 -1.75
+## x2  5.00 10.0  1.50
+## x3 -1.75  1.5  2.50
+\end{verbatim}
+
+Obtenemos la matriz \(R\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r }\OtherTok{=} \FunctionTok{cor}\NormalTok{(df)}
+\NormalTok{r}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            x1        x2         x3
+## x1  1.0000000 0.5773503 -0.4041452
+## x2  0.5773503 1.0000000  0.3000000
+## x3 -0.4041452 0.3000000  1.0000000
+\end{verbatim}
+
+\hypertarget{sea-x-5-1-3-y-y--1-3-1}{%
+\paragraph{\texorpdfstring{2. Sea \(x' = [5, 1, 3]\) y
+\(y = [-1, 3 1]\)}{2. Sea x' = {[}5, 1, 3{]} y y = {[}-1, 3 1{]}}}\label{sea-x-5-1-3-y-y--1-3-1}}
+
+\textbf{A) Grafique los vectores.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{y }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\FunctionTok{scatterplot3d}\NormalTok{( }\AttributeTok{x =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{1}\NormalTok{], y[}\DecValTok{1}\NormalTok{]), }\AttributeTok{y =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{2}\NormalTok{], y[}\DecValTok{2}\NormalTok{]), }\AttributeTok{z =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{3}\NormalTok{], y[}\DecValTok{3}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller2_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\textbf{B) Encuentre: }
+
+\begin{itemize}
+\tightlist
+\item
+  Longitud de x:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_lenght }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(x}\SpecialCharTok{\%*\%}\NormalTok{x)}
+\NormalTok{x\_lenght}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 5.91608
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Ángulo entre \(x\) e \(y\), recordemos
+  \(cos(\theta) = \frac{x \cdot y}{||x|| \cdot ||y||\)
+\end{itemize}
+
+\end{document}

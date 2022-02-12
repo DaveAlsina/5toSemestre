@@ -1,0 +1,229 @@
+---
+title: "taller 2"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+## Paquetes de interes
+packages = c("dslabs", "MASS", "scatterplot3d")
+
+## Se cargan o se instalan y cargan
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+      
+    }
+  }
+)
+```
+
+```{r}
+install.packages("plotly")
+```
+
+## Taller 2
+
+#### 1. Las siguientes son 5 medidas sobre las variables $x_1, x_2, x_3$:
+
+Calculamos las medias de cada variable:
+
+```{r}
+x1 = c(9, 2, 6, 5, 8)
+x2 = c(12, 8, 6, 4, 10)
+x3 = c(3, 4, 0, 2, 1)
+
+df = data.frame(x1, x2, x3)
+mean = colMeans(df)
+mean
+```
+
+Calculamos la matriz $S_n$ de los datos:
+
+```{r}
+s = cov(df)
+s
+```
+
+Obtenemos la matriz $R$: 
+
+```{r}
+r = cor(df)
+r
+```
+#### 2. Sea $x' = [5, 1, 3]$ y $y = [-1, 3 1]$
+
+**A) Grafique los vectores.**
+
+```{r}
+x = c(5, 1, 3)
+y = c(-1, 3, 1)
+
+scatterplot3d( x = c(x[1], y[1]), y = c(x[2], y[2]), z = c(x[3], y[3]))
+```
+
+**B) Encuentre: **
+
+* Longitud de x:
+
+```{r}
+x_lenght = sqrt(x%*%x)
+x_lenght
+```
+* Ángulo entre $x$ e $y$, recordemos $cos(\theta) = \frac{x \cdot y}{||x|| \cdot ||y||}$
+
+```{r}
+theta = acos( (x%*%y)/(sqrt(x%*%x)*sqrt(y%*%y)) )
+theta = theta*180/pi
+theta
+```
+
+* Proyección de $y$ en $x$:
+
+```{r}
+proyection <- function(a, b){
+  #proyecta b en a
+  p = ((b%*%a)/(a%*%a))*a
+  return(p)
+}
+
+proyection(x, y)
+```
+
+**C) Dado que $\bar{x} = 3$, y $\bar{y} = 1$, grafique $x-\bar{x}$ y $y-\bar{y}$:**
+
+```{r}
+x = x - 3
+y = y - 1
+
+scatterplot3d( x = c(x[1], y[1]), y = c(x[2], y[2]), z = c(x[3], y[3]))
+```
+
+
+#### 3. Sea la matriz A:
+
+```{r}
+A = cbind(c(9, -2), c(-2, 6))
+A
+```
+* ¿Es simétrica? **(si es simétrica)**
+
+```{r}
+t(A) == A
+```
+* Muestre que *A* es definida positiva, *(dado que todos los eigenvalues son positivos A es definida positiva)*:
+
+```{r}
+ans = eigen(A)
+ans$values
+```
+* La matriz de descomposición espectral es:
+
+```{r}
+ans$vectors
+```
+* La inversa de A es: 
+
+```{r}
+A_inv = solve(A)
+A_inv
+```
+* Encuentre los valores y vectores propios de $A^{-1}$:
+
+```{r}
+ans2 = eigen(A_inv)
+print(ans2$values)
+print(ans$vectors)
+```
+
+#### 6. Dada la matriz de datos
+
+```{r}
+a = c(9,5,1)
+b = c(1, 3, 2)
+
+X = cbind(a, b)
+X
+```
+**A) Grafique el diagrama de dispersion en $p=2$ dimensiones. Localice la media de la muestra en su diagrama**
+
+```{r}
+plot(X, xlim=range(0,10), pch=19, col="red",
+     ylim=range(0, 5), xlab='eje x', ylab='eje y')
+par(new=T)
+plot(mean(a), mean(b), xlim=range(0,10), ylim=range(0,5), xlab='eje x', ylab='eje y')
+```
+
+**B) Dibuje la representación $n=3$ -dimensional de los datos y trace vectores de desviación $y_{1} - \bar{x}_{1} \cdot 1$**
+
+
+```{r}
+X = cbind(a, b)
+
+scatterplot3d(x = X[1,], y = X[2,], z = X[3,], xlab = "eje x", ylab = "eje y",
+              zlab = "eje z", pch = 16, color = 'red',
+              xlim=c(-5,10), ylim=c(-5,10), zlim =c(-5,10))
+par(new=T)
+
+x1_mean = mean(X[,1])
+x2_mean = mean(X[,2])
+X[,1] = X[,1] - x1_mean
+X[,2] = X[,2] - x2_mean
+
+scatterplot3d(x = X[1,], y = X[2,], z = X[3,], xlab = "eje x", ylab = "eje y",
+              zlab = "eje z", pch = 16, color = 'blue', 
+              xlim=c(-5,10), ylim=c(-5,10), zlim = c(-5, 10))
+```
+
+**C) Dibuje los vectores de desviación en $(B)$ que emanan del origen. Calcula las longitudes de estos vectores y del coseno del ángulo entre ellos. Relacione estas cantidades con $S_{n}$ y $R$.**
+
+
+```{r}
+scatterplot3d(x = X[1,], y = X[2,], z = X[3,], xlab = "eje x", ylab = "eje y",
+              zlab = "eje z", pch = 16, color = 'blue', 
+              xlim=c(-5,10), ylim=c(-5,10), zlim = c(-5, 10))
+
+
+```
+
+Longitud del vector $x_1$: 
+
+```{r}
+sqrt(X[,1]%*%X[,1])
+```
+
+Longitud del vector $x_2$:
+
+```{r}
+sqrt(X[,2]%*%X[,2])
+```
+
+Coseno del angulo entre $x_{1}$ y $x_{2}$:
+
+```{r}
+(X[,1]%*%X[,2])/(sqrt(X[,1]%*%X[,1])*sqrt(X[,2]%*%X[,2]))
+```
+
+
+
+Note que el coseno del ángulo entre el vector a y b era de $-0.5$, magnitud que se ve también en la matriz de coeficientes de correlación entre a y b.
+
+```{r}
+# recreamos X (ya que fue sobreescrito antes)
+X = cbind(a, b)
+S_de_x = cov(X)
+P_de_x = cor(X)
+
+print(S_de_x)
+print(P_de_x)
+```
+
+
+
+
+
+
