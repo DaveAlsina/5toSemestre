@@ -1,8 +1,9 @@
 ---
-title: "taller 2"
+title: "Taller 2"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
+author: Maria Fernanda Palacio, David Santiago Alsina, Estefania Laverde 
 ---
 
 ```{r setup, include=FALSE}
@@ -22,11 +23,9 @@ package.check <- lapply(
 )
 ```
 
-```{r}
-install.packages("plotly")
+```{r, include=FALSE}
+#install.packages("plotly")
 ```
-
-## Taller 2
 
 #### 1. Las siguientes son 5 medidas sobre las variables $x_1, x_2, x_3$:
 
@@ -84,7 +83,7 @@ theta
 
 * Proyección de $y$ en $x$:
 
-```{r}
+```{r, warning=FALSE}
 proyection <- function(a, b){
   #proyecta b en a
   p = ((b%*%a)/(a%*%a))*a
@@ -110,7 +109,7 @@ scatterplot3d( x = c(x[1], y[1]), y = c(x[2], y[2]), z = c(x[3], y[3]))
 A = cbind(c(9, -2), c(-2, 6))
 A
 ```
-* ¿Es simétrica? **(si es simétrica)**
+* ¿Es simétrica? **(si es simétrica, pues su transpuesta es igual a la matriz)**
 
 ```{r}
 t(A) == A
@@ -121,11 +120,71 @@ t(A) == A
 ans = eigen(A)
 ans$values
 ```
-* La matriz de descomposición espectral es:
+Para calcular los eigenvectores con cada eigenvalor, se desarrolla el siguiente procedimiento:
+- $\lambda =10$:
+
+$$
+\left(\begin{array}{cc} 
+-1 & -2\\
+-2 & -4
+\end{array}\right)
+\left(\begin{array}{cc} 
+x\\ 
+y
+\end{array}\right) = 
+\left(\begin{array}{cc} 
+0\\ 
+0
+\end{array}\right)
+$$ 
+Luego se tiene el sistema de ecuaciones:
+
+$$
+-x-2y = 0
+$$
+$$
+-2x-4y = 0
+$$
+Y al resolverlo se tiene entonces que 
+$$
+V1 = \left(\begin{array}{cc} 
+-2a\\
+a
+\end{array}\right), \forall a \in \mathbf{R}
+$$
+Si tomamos al valor $a$ como 1, y lo dividimos entre su módulo ($\sqrt{5}$), se obtiene el eigenvector conseguido con el código.
+
+El mismo procedimeinto se realiza con $\lambda = 5$, y se obtiene el eigenvector
+
+$$
+V1 = \left(\begin{array}{cc} 
+a\\
+2a
+\end{array}\right), \forall a \in \mathbf{R}
+$$
+Al tomar $a$ como 1, y dividiéndolo entre su módulo ($\sqrt{5}$), se obtiene el vector del código enseñado a continuación.
 
 ```{r}
 ans$vectors
 ```
+
+* La matriz de descomposición espectral es:
+
+```{r}
+A1 = ans$values[1]*ans$vectors[,1] %*% t(ans$vector[,1])
+A1
+```
+```{r}
+A2 = ans$values[2]*ans$vectors[,2] %*% t(ans$vector[,2])
+A2
+```
+
+```{r}
+desc = A1+A2
+desc
+```
+Como A1 y A2 forman A, estas son las componentes de la descomposición espectral.
+
 * La inversa de A es: 
 
 ```{r}
@@ -139,6 +198,61 @@ ans2 = eigen(A_inv)
 print(ans2$values)
 print(ans$vectors)
 ```
+
+#### 4. Verifique las relaciones $V^{1/2}\rho V^{1/2} = \Sigma$ y $(V^{1/2})^{-1} \Sigma (V^{1/2})^{-1} = \rho$, donde $\Sigma$ es la $pxp$ matriz de covarianza poblacional, $\rho$ es la matriz de correlación poblacional pxp y $V^{1/2}$ es la natriz de desviación estándar de la población.
+
+Sea $V^{1/2}\rho V^{1/2} = \Sigma$, queremos verificar que $\rho = (V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}$. 
+
+Sustituyendo el valor de $\Sigma$ en la segunda ecuación se obtiene
+$(V^{1/2})^{-1} [V^{1/2}\rho V^{1/2}] (V^{1/2})^{-1}$
+
+Note que $[(V^{1/2})^{-1} V^{1/2}] = [V^{1/2} (V^{1/2})^{-1}] = I$.
+
+Y por lo tanto, $(V^{1/2})^{-1} [V^{1/2}\rho V^{1/2}] (V^{1/2})^{-1} = I \rho I = \rho$.
+
+Por otro lado, conociendo que  $\rho = (V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}$ queremos verificar que $V^{1/2}\rho V^{1/2} = \Sigma$. 
+
+De la misma manera, sustituimos el valor de $\rho$ en la segunda ecuación de modo que
+$V^{1/2}[(V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}]V^{1/2} = I \Sigma I = \Sigma$
+
+Concluimos así que las relaciones se cumplen.
+
+#### 5. Derive las expresiones para la media y las varianzas de las siguientes combinaciones lineales en terminos de ls¿as meduas y covaruanzas de las variables aleatorias $X_1$, $X_2$ y $X_3$.
+
+**A) $X_1-2X_2$**
+
+$E(X_1-2X_2) = E(X_1)-2E(X_2)$
+
+$var(X_1-2X_2) = var(X_1)+4var(X_2)+4cov(X_1,X_2)$
+
+**B) $-X_1+3X_2$**
+
+$E(-X_1+3X_2) = -E(X_1)+3E(X_2)$
+
+$var(-X_1+3X_2) = var(-X_1)+9var(X_2)+2cov(-X_1,3X_2) = var(X_1)+9var(X_2)-6cov(X_1,X_2)$
+
+**C) $X_1+X_2+X_3$**
+
+$E(X_1+X_2+X_3) = E(X_1)+E(X_2)+E(X_3)$
+
+$var(X_1+X_2+X_3) = var(X_1)+var(X_2+X_3)+2cov(X_1,X_2+X_3) =$
+
+$=var(X_1)+var(X_2)+var(X_3)+2cov(X_2,X_3)+2cov(X_1,X_2)+2cov(X_1,X_3)$
+
+**D) $X_1+2X_2-X_3$**
+
+$E(X_1+2X_2-X_3) = E(X_1)+2E(X_2)-E(X_3)$
+
+$var(X_1+2X_2-X_3)= var(X_1)+var(2X_2-X_3)+2cov(X_1,2X_2-X_3) =$
+
+$var(X_1)+4var(X_2)+var(X_3)-4cov(X_2,X_3)+4cov(X_1,X_2)-2cov(X_1,X_3)$
+
+**E) $3X_1-4X_2$ si $X_1$ y $X_2$ son independientes. **
+
+$E(3X_1-4X_2) = 3E(X_1)-4E(X_2)$
+
+$var(3X_1-4X_2)=9var(X_1)+16var(X_2)$
+
 
 #### 6. Dada la matriz de datos
 
@@ -181,49 +295,217 @@ scatterplot3d(x = X[1,], y = X[2,], z = X[3,], xlab = "eje x", ylab = "eje y",
 
 **C) Dibuje los vectores de desviación en $(B)$ que emanan del origen. Calcula las longitudes de estos vectores y del coseno del ángulo entre ellos. Relacione estas cantidades con $S_{n}$ y $R$.**
 
-
 ```{r}
 scatterplot3d(x = X[1,], y = X[2,], z = X[3,], xlab = "eje x", ylab = "eje y",
               zlab = "eje z", pch = 16, color = 'blue', 
               xlim=c(-5,10), ylim=c(-5,10), zlim = c(-5, 10))
 
-
+print(paste("longitud del vector x1: ", sqrt(X[,1]%*%X[,1]) ) ) 
+print(paste("longitud del vector x2: ", sqrt(X[,2]%*%X[,2]) ) ) 
+print(paste("coseno del angulo entre ellos: ", 
+            (X[,1]%*%X[,2])/(sqrt(X[,1]%*%X[,1])*sqrt(X[,2]%*%X[,2]))  ))
 ```
 
-Longitud del vector $x_1$: 
-
+Note que el coseno del ángulo entre los vectores es la correlación ($R$) entre sus cantidades.  
 ```{r}
-sqrt(X[,1]%*%X[,1])
+cor(X)
 ```
 
-Longitud del vector $x_2$:
+#### 7. Demuestre que $|S| = (s_{11}s_{22}...s_{pp})|R|$
 
-```{r}
-sqrt(X[,2]%*%X[,2])
-```
+Queremos mostrar que $|S| = (S_{11}S_{22}...S_{pp})|R|$. 
+Como $R = D^{-\frac{1}{2}}S D^{-\frac{1}{2}}$, donde $D^{-\frac{1}{2}}$ es una matriz triangular cuyo determinante esta dado por el producto de los elementos de su diagonal principal, es decir, $\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}}$, podemos escribir el lado derecho de la igualdad como
+$(s_{11}s_{22}...s_{pp})|R| = (s_{11}s_{22}...s_{pp})|D^{-\frac{1}{2}}S D^{-\frac{1}{2}}| = (s_{11}s_{22}...s_{pp})|D^{-\frac{1}{2}}||S|| D^{-\frac{1}{2}}|=$
 
-Coseno del angulo entre $x_{1}$ y $x_{2}$:
-
-```{r}
-(X[,1]%*%X[,2])/(sqrt(X[,1]%*%X[,1])*sqrt(X[,2]%*%X[,2]))
-```
+$=(s_{11}s_{22}...s_{pp})\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}}|S|\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}} = (s_{11}s_{22}...s_{pp})\frac{1}{S11S22...Spp}|S|=|S|$
 
 
 
-Note que el coseno del ángulo entre el vector a y b era de $-0.5$, magnitud que se ve también en la matriz de coeficientes de correlación entre a y b.
+#### 8. Sea $V$ una variable aleatoria vectorial con un vector medio $E(v) = \mu_{v}$ y una matriz de covarianza $E((V - \mu_{v})\cdot (V - \mu_{v})') = \Sigma_{v}$. Demuestre que:
 
-```{r}
-# recreamos X (ya que fue sobreescrito antes)
-X = cbind(a, b)
-S_de_x = cov(X)
-P_de_x = cor(X)
+$E(VV') = \Sigma_{v} + \mu_{v}\mu_{v}'$
 
-print(S_de_x)
-print(P_de_x)
-```
+Para esta demostracion nos valdremos de las siguientes propiedades. Sean $x$ e $y$ variables aleatorias:
+$var(x) = E(x^2) - E(x)^2$, $cov(x, y) = E(xy) - E(x)E(y)$.
+
+Empecemos por analizar la forma de $VV'$:
 
 
+$$
+VV' = \begin{bmatrix}
+            x_{1} \\ x_{2} \\ \vdots \\ x_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            x_{1} & x_{2} & \dots & x_{n}
+      \end{bmatrix} = 
+      \begin{bmatrix}
+            x_{1}^{2} & \dots & x_{i + n}x_{1} \\
+            \vdots    & \ddots & \vdots \\
+            x_{n}x_{1} & \dots & x_{i + n}^{2}
+      \end{bmatrix}
+$$
 
 
+$$
+E(VV') = E\bigg(\begin{bmatrix}
+            x_{1} \\ x_{2} \\ \vdots \\ x_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            x_{1} & x_{2} & \dots & x_{n}
+      \end{bmatrix}\bigg) = 
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix}
+$$
+
+Vea que $\mu_{v}\mu_{v}'$ es otra matriz de la forma:
+
+
+$$
+\mu_{v}\mu_{v}' = \begin{bmatrix}
+            \mu_{1} \\ \mu_{2} \\ \vdots \\ \mu_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            \mu_{1} & \mu_{2} & \dots & \mu_{n}
+      \end{bmatrix} = 
+      \begin{bmatrix}
+            \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+            \vdots    & \ddots & \vdots \\
+            \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix}
+$$
+
+Tenemos entonces que: 
+
+$$
+\Sigma_{v} =       
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix} - 
+      \begin{bmatrix}
+            \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+            \vdots    & \ddots & \vdots \\
+            \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix} 
+      = 
+      \begin{bmatrix}
+            s_{1}^{2} & \dots & s_{i + n}s_{1} \\
+            \vdots    & \ddots & \vdots \\
+            s_{n}s_{1} & \dots & s_{i + n}^{2}
+      \end{bmatrix} 
+$$
+Esto es válido porque sabemos que dado $x$ e $y$ variables aleatorias:
+$var(x) = E(x^2) - E(x)^2$, $cov(x, y) = E(xy) - E(x)E(y)$.
+
+Reordenando todo:
+
+
+$$
+\Sigma_{v} + 
+      \begin{bmatrix}
+                  \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+                  \vdots    & \ddots & \vdots \\
+                  \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix} = \Sigma_{v} +  \mu_{v}\mu_{v}' =      
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix} 
+      = E(VV') \;\;
+      \blacksquare
+$$
+
+#### 9) Considere una distribución normal bivariada con $\mu_{1} = 1$, $\mu_{2}=3$, $\sigma_{11} = 2$, $\sigma_{22} =1$ y $p_{12} =-.8$  
+
+**a)** Escriba la densidad normal bivariada.  
+$p_{12} = \frac{\sigma_{12}}{\sqrt{\sigma_{11}}\sqrt{\sigma_{22}}}$  
+$-.8 = \sigma_{12} \frac{1}{\sqrt{2}\sqrt{1}}$
+$\sigma_{12} = -.8\sqrt{2}$  
+
+$$
+\Sigma= \left(\begin{array}
+12 & -\sqrt{2}\cdot0.8\\
+-\sqrt{2}\cdot0.8 & 1
+\end{array}\right)
+$$
+Necesitamos $|\Sigma^{-1}|$ que calculada en R da:
+$$
+\Sigma^{-1}= \left(\begin{array}
+11.3889 & 1.5713\\
+1.5713 & 2.7778
+\end{array}\right)
+$$
+Y el determinante de esta matriz: $det(\Sigma^{-1}) = 1.3889$  
+Con estos datos entonces la formula es:  
+$f(x_{1}, x_{2}) = \frac{2}{2\pi \cdot 1.3889} \cdot exp((x_{1}-1)^2 \cdot 1.3889 + 2(x_2 -3)(x_1 -1)1.5713 + (x_2 -3)^22.7778 \cdot \frac{-1}{2})$
+
+**b)** Escriba la expresión de distancia estadística al cuadrado $(x − \mu)′ \Sigma^{-1}(x − \mu)$ como una función cuadrática de $x_1$ y $x_2$.
+
+
+$$
+(distancia)^{2} =\left( \begin{bmatrix}
+x_1 \\
+x_2 
+\end{bmatrix}- \left[\begin{array}
+11 \\
+3 
+\end{array}\right]\right)^{'} \begin{bmatrix}
+1.3889 & 1.5713  \\
+1.5713 & 2.7778
+\end{bmatrix} \left( \begin{bmatrix}
+x_{1} \\
+x_{2}
+\end{bmatrix} - \begin{bmatrix}
+1 \\
+3
+\end{bmatrix}\right)
+$$
+
+$$
+(distancia)^2 = \begin{bmatrix}
+x_{1}-1 & x_{2}-3
+\end{bmatrix}  \begin{bmatrix}
+1.3889 & 1.5713  \\
+1.5713 & 2.7778
+\end{bmatrix} \begin{bmatrix}
+x_{1} -1 & x_{2}-3
+\end{bmatrix}
+$$
+
+$$ 
+(distancia)^2 = [\begin{array} {cc}
+1.3889(x_1 -1) + 1.5713(x_2 -3) &  1.5713(x_1 -1)+2.7778(x_2 -3) \end{array} ]  \left[  \begin{array}{cc}
+x_{1} -1 \\
+x_{2}-3
+\end{array} \right]
+$$
+
+$$
+(distancia)^2 = 1.3889(x_1 -1)^2 + 1.5713(x_2 -3)(x_1 -1) + 1.5713(x_1 -1)(x_2 -3) + 2.7778(x_2 -3)
+$$
+
+
+
+#### 10) Sea $X$ $N_{3}(\mu, \Sigma)$ con $\mu^{'} = [-3,1,4]$ y####
+$$
+\left(\begin{array} {cc} 
+1 & -2 & 0\\
+-2 & 5 & 0 \\
+0 & 0 & 2
+\end{array}\right)
+$$
+
+A)$X_{1}$ y $X_{2}$  
+
+> $\sigma_{12} = \sigma_{21} = -2$ por lo tanto, son dependientes.  
+
+B) $X_{2}$ y $X_{3}$  
+
+> $\sigma_{13} = \sigma_{31} = 0$ por lo tanto, son independientes.
 
 

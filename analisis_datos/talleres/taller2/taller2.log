@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.1.28)  11 FEB 2022 10:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.2.12)  17 FEB 2022 23:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -343,32 +343,32 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 No file taller2.aux.
 \openout1 = `taller2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Info: Redefining \microtypecontext on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Info: Redefining \microtypecontext on input line 111.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 109.
+LaTeX Info: Redefining \showhyphens on input line 111.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -397,7 +397,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box50
-Package hyperref Info: Link coloring OFF on input line 109.
+Package hyperref Info: Link coloring OFF on input line 111.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -407,9 +407,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count281
 )
-LaTeX Info: Redefining \ref on input line 109.
-LaTeX Info: Redefining \pageref on input line 109.
-LaTeX Info: Redefining \nameref on input line 109.
+LaTeX Info: Redefining \ref on input line 111.
+LaTeX Info: Redefining \pageref on input line 111.
+LaTeX Info: Redefining \nameref on input line 111.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -445,90 +445,139 @@ LaTeX Info: Redefining \nameref on input line 109.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-11.
+13.
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-11.
+13.
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-111.
+113.
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-111.
+113.
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 111.
+(Font)              <12> on input line 113.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 111.
+(Font)              <8> on input line 113.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 111.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 111
+(Font)              <6> on input line 113.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 113
 .
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 111
+LaTeX Font Info:    Trying to load font information for U+msb on input line 113
 .
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 119.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 119.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 119.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-13.
+22.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-121.
-(/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 155.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 155.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 155.
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<taller2_files/figure-latex/unnamed-chunk-5-1.pdf, id=22, 439.6425pt x 223.8362
-4pt>
+<taller2_files/figure-latex/unnamed-chunk-5-1.pdf, id=4, 439.6425pt x 223.83624
+pt>
 File: taller2_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use taller2_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: taller2_files/figure-latex/unnamed-chunk-5-1.pdf  used
- on input line 221.
+ on input line 185.
 (pdftex.def)             Requested size: 439.65483pt x 223.84251pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-28.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+92.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-))
-Runaway argument?
-{||x|| \cdot ||y||\) \end {itemize} \par \end {document} 
-! File ended while scanning use of \frac .
-<inserted text> 
-                \par 
-<*> taller2.tex
-                
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 235.
+<taller2_files/figure-latex/unnamed-chunk-9-1.pdf, id=25, 439.6425pt x 223.8362
+4pt>
+File: taller2_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
+<use taller2_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: taller2_files/figure-latex/unnamed-chunk-9-1.pdf  used
+ on input line 261.
+(pdftex.def)             Requested size: 439.65483pt x 223.84251pt.
+[2 <./taller2_files/figure-latex/unnamed-chunk-5-1.pdf>] [3 <./taller2_files/fi
+gure-latex/unnamed-chunk-9-1.pdf>] [4]
+Overfull \hbox (18.1815pt too wide) in paragraph at lines 489--492
+[]\T1/lmr/m/n/10 (-20) De la misma man-era, susti-tu-imos el valor de $\OML/lmm
+/m/it/10 ^^Z$ \T1/lmr/m/n/10 (-20) en la se-gunda ecuación de modo que $\OML/lm
+m/m/it/10 V[]\OT1/lmr/m/n/10 (-20) [(\OML/lmm/m/it/10 V[]\OT1/lmr/m/n/10 (-20) 
+)[]^^F(\OML/lmm/m/it/10 V[]\OT1/lmr/m/n/10 (-20) )[]]\OML/lmm/m/it/10 V[] \OT1/
+lmr/m/n/10 (-20) =
+ []
+
+[5]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+561.
+(/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<taller2_files/figure-latex/unnamed-chunk-20-1.pdf, id=70, 440.64626pt x 251.94
+125pt>
+File: taller2_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
+
+<use taller2_files/figure-latex/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: taller2_files/figure-latex/unnamed-chunk-20-1.pdf  use
+d on input line 567.
+(pdftex.def)             Requested size: 440.64517pt x 251.94063pt.
+<taller2_files/figure-latex/unnamed-chunk-21-1.pdf, id=71, 439.6425pt x 223.836
+24pt>
+File: taller2_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
+
+<use taller2_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: taller2_files/figure-latex/unnamed-chunk-21-1.pdf  use
+d on input line 592.
+(pdftex.def)             Requested size: 439.65483pt x 223.84251pt.
+[6 <./taller2_files/figure-latex/unnamed-chunk-20-1.pdf>]
+<taller2_files/figure-latex/unnamed-chunk-22-1.pdf, id=84, 439.6425pt x 223.836
+24pt>
+File: taller2_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
+
+<use taller2_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: taller2_files/figure-latex/unnamed-chunk-22-1.pdf  use
+d on input line 606.
+(pdftex.def)             Requested size: 439.65483pt x 223.84251pt.
+[7 <./taller2_files/figure-latex/unnamed-chunk-21-1.pdf> <./taller2_files/figur
+e-latex/unnamed-chunk-22-1.pdf>] [8]
+
+! LaTeX Error: Illegal character in array arg.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.781 1
+       2 & -\sqrt{2}\cdot0.8\\ 
 Here is how much of TeX's memory you used:
- 13397 strings out of 481239
- 196012 string characters out of 5920377
- 485755 words of memory out of 5000000
- 28420 multiletter control sequences out of 15000+600000
- 573465 words of font info for 73 fonts, out of 8000000 for 9000
+ 13461 strings out of 481239
+ 198424 string characters out of 5920377
+ 496164 words of memory out of 5000000
+ 28449 multiletter control sequences out of 15000+600000
+ 584531 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,5n,42p,806b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,9n,42p,806b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 !  ==> Fatal error occurred, no output PDF file produced!

@@ -4,9 +4,10 @@
 %
 \documentclass[
 ]{article}
-\title{taller 2}
-\author{}
-\date{\vspace{-2.5em}}
+\title{Taller 2}
+\author{Maria Fernanda Palacio, David Santiago Alsina, Estefania
+Laverde}
+\date{}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -40,7 +41,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={taller 2},
+  pdftitle={Taller 2},
+  pdfauthor={Maria Fernanda Palacio, David Santiago Alsina, Estefania Laverde},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -108,44 +110,6 @@
 
 \begin{document}
 \maketitle
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"plotly"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Installing package into '/home/dave/R/x86_64-pc-linux-gnu-library/3.6'
-## (as 'lib' is unspecified)
-\end{verbatim}
-
-\begin{verbatim}
-## also installing the dependencies 'curl', 'openssl', 'httr'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in install.packages("plotly"): installation of package 'curl' had non-
-## zero exit status
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in install.packages("plotly"): installation of package 'openssl' had
-## non-zero exit status
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in install.packages("plotly"): installation of package 'httr' had non-
-## zero exit status
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in install.packages("plotly"): installation of package 'plotly' had non-
-## zero exit status
-\end{verbatim}
-
-\hypertarget{taller-2}{%
-\subsection{Taller 2}\label{taller-2}}
 
 \hypertarget{las-siguientes-son-5-medidas-sobre-las-variables-x_1-x_2-x_3}{%
 \paragraph{\texorpdfstring{1. Las siguientes son 5 medidas sobre las
@@ -244,7 +208,663 @@ Obtenemos la matriz \(R\):
 \tightlist
 \item
   Ángulo entre \(x\) e \(y\), recordemos
-  \(cos(\theta) = \frac{x \cdot y}{||x|| \cdot ||y||\)
+  \(cos(\theta) = \frac{x \cdot y}{||x|| \cdot ||y||}\)
 \end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta }\OtherTok{=} \FunctionTok{acos}\NormalTok{( (x}\SpecialCharTok{\%*\%}\NormalTok{y)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(x}\SpecialCharTok{\%*\%}\NormalTok{x)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(y}\SpecialCharTok{\%*\%}\NormalTok{y)) )}
+\NormalTok{theta }\OtherTok{=}\NormalTok{ theta}\SpecialCharTok{*}\DecValTok{180}\SpecialCharTok{/}\NormalTok{pi}
+\NormalTok{theta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 87.07867
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Proyección de \(y\) en \(x\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proyection }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(a, b)\{}
+  \CommentTok{\#proyecta b en a}
+\NormalTok{  p }\OtherTok{=}\NormalTok{ ((b}\SpecialCharTok{\%*\%}\NormalTok{a)}\SpecialCharTok{/}\NormalTok{(a}\SpecialCharTok{\%*\%}\NormalTok{a))}\SpecialCharTok{*}\NormalTok{a}
+  \FunctionTok{return}\NormalTok{(p)}
+\NormalTok{\}}
+
+\FunctionTok{proyection}\NormalTok{(x, y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.14285714 0.02857143 0.08571429
+\end{verbatim}
+
+\textbf{C) Dado que \(\bar{x} = 3\), y \(\bar{y} = 1\), grafique
+\(x-\bar{x}\) y \(y-\bar{y}\):}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=}\NormalTok{ x }\SpecialCharTok{{-}} \DecValTok{3}
+\NormalTok{y }\OtherTok{=}\NormalTok{ y }\SpecialCharTok{{-}} \DecValTok{1}
+
+\FunctionTok{scatterplot3d}\NormalTok{( }\AttributeTok{x =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{1}\NormalTok{], y[}\DecValTok{1}\NormalTok{]), }\AttributeTok{y =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{2}\NormalTok{], y[}\DecValTok{2}\NormalTok{]), }\AttributeTok{z =} \FunctionTok{c}\NormalTok{(x[}\DecValTok{3}\NormalTok{], y[}\DecValTok{3}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller2_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\hypertarget{sea-la-matriz-a}{%
+\paragraph{3. Sea la matriz A:}\label{sea-la-matriz-a}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{=} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{))}
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    9   -2
+## [2,]   -2    6
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Es simétrica? \textbf{(si es simétrica, pues su transpuesta es igual
+  a la matriz)}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(A) }\SpecialCharTok{==}\NormalTok{ A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,] TRUE TRUE
+## [2,] TRUE TRUE
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Muestre que \emph{A} es definida positiva, \emph{(dado que todos los
+  eigenvalues son positivos A es definida positiva)}:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ans }\OtherTok{=} \FunctionTok{eigen}\NormalTok{(A)}
+\NormalTok{ans}\SpecialCharTok{$}\NormalTok{values}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10  5
+\end{verbatim}
+
+Para calcular los eigenvectores con cada eigenvalor, se desarrolla el
+siguiente procedimiento: - \(\lambda =10\):
+
+\[
+\left(\begin{array}{cc} 
+-1 & -2\\
+-2 & -4
+\end{array}\right)
+\left(\begin{array}{cc} 
+x\\ 
+y
+\end{array}\right) = 
+\left(\begin{array}{cc} 
+0\\ 
+0
+\end{array}\right)
+\] Luego se tiene el sistema de ecuaciones:
+
+\[
+-x-2y = 0
+\] \[
+-2x-4y = 0
+\] Y al resolverlo se tiene entonces que \[
+V1 = \left(\begin{array}{cc} 
+-2a\\
+a
+\end{array}\right), \forall a \in \mathbf{R}
+\] Si tomamos al valor \(a\) como 1, y lo dividimos entre su módulo
+(\(\sqrt{5}\)), se obtiene el eigenvector conseguido con el código.
+
+El mismo procedimeinto se realiza con \(\lambda = 5\), y se obtiene el
+eigenvector
+
+\[
+V1 = \left(\begin{array}{cc} 
+a\\
+2a
+\end{array}\right), \forall a \in \mathbf{R}
+\] Al tomar \(a\) como 1, y dividiéndolo entre su módulo (\(\sqrt{5}\)),
+se obtiene el vector del código ensenado a continuación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ans}\SpecialCharTok{$}\NormalTok{vectors}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]
+## [1,] -0.8944272 -0.4472136
+## [2,]  0.4472136 -0.8944272
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  La matriz de descomposición espectral es:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A1 }\OtherTok{=}\NormalTok{ ans}\SpecialCharTok{$}\NormalTok{values[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{ans}\SpecialCharTok{$}\NormalTok{vectors[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(ans}\SpecialCharTok{$}\NormalTok{vector[,}\DecValTok{1}\NormalTok{])}
+\NormalTok{A1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    8   -4
+## [2,]   -4    2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A2 }\OtherTok{=}\NormalTok{ ans}\SpecialCharTok{$}\NormalTok{values[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{ans}\SpecialCharTok{$}\NormalTok{vectors[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(ans}\SpecialCharTok{$}\NormalTok{vector[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{A2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    2
+## [2,]    2    4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{desc }\OtherTok{=}\NormalTok{ A1}\SpecialCharTok{+}\NormalTok{A2}
+\NormalTok{desc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    9   -2
+## [2,]   -2    6
+\end{verbatim}
+
+Como A1 y A2 forman A, estas son las componentes de la descomposición
+espectral.
+
+\begin{itemize}
+\tightlist
+\item
+  La inversa de A es:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A\_inv }\OtherTok{=} \FunctionTok{solve}\NormalTok{(A)}
+\NormalTok{A\_inv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,] 0.12 0.04
+## [2,] 0.04 0.18
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Encuentre los valores y vectores propios de \(A^{-1}\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ans2 }\OtherTok{=} \FunctionTok{eigen}\NormalTok{(A\_inv)}
+\FunctionTok{print}\NormalTok{(ans2}\SpecialCharTok{$}\NormalTok{values)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2 0.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(ans}\SpecialCharTok{$}\NormalTok{vectors)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]
+## [1,] -0.8944272 -0.4472136
+## [2,]  0.4472136 -0.8944272
+\end{verbatim}
+
+\hypertarget{verifique-las-relaciones-v12rho-v12-sigma-y-v12-1-sigma-v12-1-rho-donde-sigma-es-la-pxp-matriz-de-covarianza-poblacional-rho-es-la-matriz-de-correlaciuxf3n-poblacional-pxp-y-v12-es-la-natriz-de-desviaciuxf3n-estuxe1ndar-de-la-poblaciuxf3n.}{%
+\paragraph{\texorpdfstring{4. Verifique las relaciones
+\(V^{1/2}\rho V^{1/2} = \Sigma\) y
+\((V^{1/2})^{-1} \Sigma (V^{1/2})^{-1} = \rho\), donde \(\Sigma\) es la
+\(pxp\) matriz de covarianza poblacional, \(\rho\) es la matriz de
+correlación poblacional pxp y \(V^{1/2}\) es la natriz de desviación
+estándar de la
+población.}{4. Verifique las relaciones V\^{}\{1/2\}\textbackslash rho V\^{}\{1/2\} = \textbackslash Sigma y (V\^{}\{1/2\})\^{}\{-1\} \textbackslash Sigma (V\^{}\{1/2\})\^{}\{-1\} = \textbackslash rho, donde \textbackslash Sigma es la pxp matriz de covarianza poblacional, \textbackslash rho es la matriz de correlación poblacional pxp y V\^{}\{1/2\} es la natriz de desviación estándar de la población.}}\label{verifique-las-relaciones-v12rho-v12-sigma-y-v12-1-sigma-v12-1-rho-donde-sigma-es-la-pxp-matriz-de-covarianza-poblacional-rho-es-la-matriz-de-correlaciuxf3n-poblacional-pxp-y-v12-es-la-natriz-de-desviaciuxf3n-estuxe1ndar-de-la-poblaciuxf3n.}}
+
+Sea \(V^{1/2}\rho V^{1/2} = \Sigma\), queremos verificar que
+\(\rho = (V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}\).
+
+Sustituyendo el valor de \(\Sigma\) en la segunda ecuación se obtiene
+\((V^{1/2})^{-1} [V^{1/2}\rho V^{1/2}] (V^{1/2})^{-1}\)
+
+Note que \([(V^{1/2})^{-1} V^{1/2}] = [V^{1/2} (V^{1/2})^{-1}] = I\).
+
+Y por lo tanto,
+\((V^{1/2})^{-1} [V^{1/2}\rho V^{1/2}] (V^{1/2})^{-1} = I \rho I = \rho\).
+
+Por otro lado, conociendo que
+\(\rho = (V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}\) queremos verificar que
+\(V^{1/2}\rho V^{1/2} = \Sigma\).
+
+De la misma manera, sustituimos el valor de \(\rho\) en la segunda
+ecuación de modo que
+\(V^{1/2}[(V^{1/2})^{-1} \Sigma (V^{1/2})^{-1}]V^{1/2} = I \Sigma I = \Sigma\)
+
+Concluimos así que las relaciones se cumplen.
+
+\hypertarget{derive-las-expresiones-para-la-media-y-las-varianzas-de-las-siguientes-combinaciones-lineales-en-terminos-de-lsas-meduas-y-covaruanzas-de-las-variables-aleatorias-x_1-x_2-y-x_3.}{%
+\paragraph{\texorpdfstring{5. Derive las expresiones para la media y las
+varianzas de las siguientes combinaciones lineales en terminos de ls¿as
+meduas y covaruanzas de las variables aleatorias \(X_1\), \(X_2\) y
+\(X_3\).}{5. Derive las expresiones para la media y las varianzas de las siguientes combinaciones lineales en terminos de ls¿as meduas y covaruanzas de las variables aleatorias X\_1, X\_2 y X\_3.}}\label{derive-las-expresiones-para-la-media-y-las-varianzas-de-las-siguientes-combinaciones-lineales-en-terminos-de-lsas-meduas-y-covaruanzas-de-las-variables-aleatorias-x_1-x_2-y-x_3.}}
+
+\textbf{A) \(X_1-2X_2\)}
+
+\(E(X_1-2X_2) = E(X_1)-2E(X_2)\)
+
+\(var(X_1-2X_2) = var(X_1)+4var(X_2)+4cov(X_1,X_2)\)
+
+\textbf{B) \(-X_1+3X_2\)}
+
+\(E(-X_1+3X_2) = -E(X_1)+3E(X_2)\)
+
+\(var(-X_1+3X_2) = var(-X_1)+9var(X_2)+2cov(-X_1,3X_2) = var(X_1)+9var(X_2)-6cov(X_1,X_2)\)
+
+\textbf{C) \(X_1+X_2+X_3\)}
+
+\(E(X_1+X_2+X_3) = E(X_1)+E(X_2)+E(X_3)\)
+
+\(var(X_1+X_2+X_3) = var(X_1)+var(X_2+X_3)+2cov(X_1,X_2+X_3) =\)
+
+\(=var(X_1)+var(X_2)+var(X_3)+2cov(X_2,X_3)+2cov(X_1,X_2)+2cov(X_1,X_3)\)
+
+\textbf{D) \(X_1+2X_2-X_3\)}
+
+\(E(X_1+2X_2-X_3) = E(X_1)+2E(X_2)-E(X_3)\)
+
+\(var(X_1+2X_2-X_3)= var(X_1)+var(2X_2-X_3)+2cov(X_1,2X_2-X_3) =\)
+
+\(var(X_1)+4var(X_2)+var(X_3)-4cov(X_2,X_3)+4cov(X_1,X_2)-2cov(X_1,X_3)\)
+
+\textbf{E) \(3X_1-4X_2\) si \(X_1\) y \(X_2\) son independientes. }
+
+\(E(3X_1-4X_2) = 3E(X_1)-4E(X_2)\)
+
+\(var(3X_1-4X_2)=9var(X_1)+16var(X_2)\)
+
+\hypertarget{dada-la-matriz-de-datos}{%
+\paragraph{6. Dada la matriz de datos}\label{dada-la-matriz-de-datos}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{9}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{b }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+
+\NormalTok{X }\OtherTok{=} \FunctionTok{cbind}\NormalTok{(a, b)}
+\NormalTok{X}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      a b
+## [1,] 9 1
+## [2,] 5 3
+## [3,] 1 2
+\end{verbatim}
+
+\textbf{A) Grafique el diagrama de dispersion en \(p=2\) dimensiones.
+Localice la media de la muestra en su diagrama}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(X, }\AttributeTok{xlim=}\FunctionTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{pch=}\DecValTok{19}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{,}
+     \AttributeTok{ylim=}\FunctionTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{xlab=}\StringTok{\textquotesingle{}eje x\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab=}\StringTok{\textquotesingle{}eje y\textquotesingle{}}\NormalTok{)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{new=}\NormalTok{T)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{mean}\NormalTok{(a), }\FunctionTok{mean}\NormalTok{(b), }\AttributeTok{xlim=}\FunctionTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{range}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{), }\AttributeTok{xlab=}\StringTok{\textquotesingle{}eje x\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab=}\StringTok{\textquotesingle{}eje y\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller2_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\textbf{B) Dibuje la representación \(n=3\) -dimensional de los datos y
+trace vectores de desviación \(y_{1} - \bar{x}_{1} \cdot 1\)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{=} \FunctionTok{cbind}\NormalTok{(a, b)}
+
+\FunctionTok{scatterplot3d}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X[}\DecValTok{1}\NormalTok{,], }\AttributeTok{y =}\NormalTok{ X[}\DecValTok{2}\NormalTok{,], }\AttributeTok{z =}\NormalTok{ X[}\DecValTok{3}\NormalTok{,], }\AttributeTok{xlab =} \StringTok{"eje x"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"eje y"}\NormalTok{,}
+              \AttributeTok{zlab =} \StringTok{"eje z"}\NormalTok{, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+              \AttributeTok{xlim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{zlim =}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{))}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{new=}\NormalTok{T)}
+
+\NormalTok{x1\_mean }\OtherTok{=} \FunctionTok{mean}\NormalTok{(X[,}\DecValTok{1}\NormalTok{])}
+\NormalTok{x2\_mean }\OtherTok{=} \FunctionTok{mean}\NormalTok{(X[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{X[,}\DecValTok{1}\NormalTok{] }\OtherTok{=}\NormalTok{ X[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ x1\_mean}
+\NormalTok{X[,}\DecValTok{2}\NormalTok{] }\OtherTok{=}\NormalTok{ X[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ x2\_mean}
+
+\FunctionTok{scatterplot3d}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X[}\DecValTok{1}\NormalTok{,], }\AttributeTok{y =}\NormalTok{ X[}\DecValTok{2}\NormalTok{,], }\AttributeTok{z =}\NormalTok{ X[}\DecValTok{3}\NormalTok{,], }\AttributeTok{xlab =} \StringTok{"eje x"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"eje y"}\NormalTok{,}
+              \AttributeTok{zlab =} \StringTok{"eje z"}\NormalTok{, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }
+              \AttributeTok{xlim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{zlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller2_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\textbf{C) Dibuje los vectores de desviación en \((B)\) que emanan del
+origen. Calcula las longitudes de estos vectores y del coseno del ángulo
+entre ellos. Relacione estas cantidades con \(S_{n}\) y \(R\).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{scatterplot3d}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X[}\DecValTok{1}\NormalTok{,], }\AttributeTok{y =}\NormalTok{ X[}\DecValTok{2}\NormalTok{,], }\AttributeTok{z =}\NormalTok{ X[}\DecValTok{3}\NormalTok{,], }\AttributeTok{xlab =} \StringTok{"eje x"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"eje y"}\NormalTok{,}
+              \AttributeTok{zlab =} \StringTok{"eje z"}\NormalTok{, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, }
+              \AttributeTok{xlim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\AttributeTok{zlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller2_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"longitud del vector x1: "}\NormalTok{, }\FunctionTok{sqrt}\NormalTok{(X[,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\%*\%}\NormalTok{X[,}\DecValTok{1}\NormalTok{]) ) ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "longitud del vector x1:  5.65685424949238"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"longitud del vector x2: "}\NormalTok{, }\FunctionTok{sqrt}\NormalTok{(X[,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\%*\%}\NormalTok{X[,}\DecValTok{2}\NormalTok{]) ) ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "longitud del vector x2:  1.4142135623731"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"coseno del angulo entre ellos: "}\NormalTok{, }
+\NormalTok{            (X[,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\%*\%}\NormalTok{X[,}\DecValTok{2}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(X[,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\%*\%}\NormalTok{X[,}\DecValTok{1}\NormalTok{])}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(X[,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\%*\%}\NormalTok{X[,}\DecValTok{2}\NormalTok{]))  ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "coseno del angulo entre ellos:  -0.5"
+\end{verbatim}
+
+Note que el coseno del ángulo entre los vectores es la correlación
+(\(R\)) entre sus cantidades.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      a    b
+## a  1.0 -0.5
+## b -0.5  1.0
+\end{verbatim}
+
+\hypertarget{demuestre-que-s-s_11s_22...s_ppr}{%
+\paragraph{\texorpdfstring{7. Demuestre que
+\(|S| = (s_{11}s_{22}...s_{pp})|R|\)}{7. Demuestre que \textbar S\textbar{} = (s\_\{11\}s\_\{22\}...s\_\{pp\})\textbar R\textbar{}}}\label{demuestre-que-s-s_11s_22...s_ppr}}
+
+Queremos mostrar que \(|S| = (S_{11}S_{22}...S_{pp})|R|\). Como
+\(R = D^{-\frac{1}{2}}S D^{-\frac{1}{2}}\), donde \(D^{-\frac{1}{2}}\)
+es una matriz triangular cuyo determinante esta dado por el producto de
+los elementos de su diagonal principal, es decir,
+\(\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}}\), podemos escribir el
+lado derecho de la igualdad como
+\((s_{11}s_{22}...s_{pp})|R| = (s_{11}s_{22}...s_{pp})|D^{-\frac{1}{2}}S D^{-\frac{1}{2}}| = (s_{11}s_{22}...s_{pp})|D^{-\frac{1}{2}}||S|| D^{-\frac{1}{2}}|=\)
+
+\(=(s_{11}s_{22}...s_{pp})\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}}|S|\frac{1}{\sqrt{S11}\sqrt{S22}...\sqrt{Spp}} = (s_{11}s_{22}...s_{pp})\frac{1}{S11S22...Spp}|S|=|S|\)
+
+\hypertarget{sea-v-una-variable-aleatoria-vectorial-con-un-vector-medio-ev-mu_v-y-una-matriz-de-covarianza-ev---mu_vcdot-v---mu_v-sigma_v.-demuestre-que}{%
+\paragraph{\texorpdfstring{8. Sea \(V\) una variable aleatoria vectorial
+con un vector medio \(E(v) = \mu_{v}\) y una matriz de covarianza
+\(E((V - \mu_{v})\cdot (V - \mu_{v})') = \Sigma_{v}\). Demuestre
+que:}{8. Sea V una variable aleatoria vectorial con un vector medio E(v) = \textbackslash mu\_\{v\} y una matriz de covarianza E((V - \textbackslash mu\_\{v\})\textbackslash cdot (V - \textbackslash mu\_\{v\})') = \textbackslash Sigma\_\{v\}. Demuestre que:}}\label{sea-v-una-variable-aleatoria-vectorial-con-un-vector-medio-ev-mu_v-y-una-matriz-de-covarianza-ev---mu_vcdot-v---mu_v-sigma_v.-demuestre-que}}
+
+\(E(VV') = \Sigma_{v} + \mu_{v}\mu_{v}'\)
+
+Para esta demostracion nos valdremos de las siguientes propiedades. Sean
+\(x\) e \(y\) variables aleatorias: \(var(x) = E(x^2) - E(x)^2\),
+\(cov(x, y) = E(xy) - E(x)E(y)\).
+
+Empecemos por analizar la forma de \(VV'\):
+
+\[
+VV' = \begin{bmatrix}
+            x_{1} \\ x_{2} \\ \vdots \\ x_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            x_{1} & x_{2} & \dots & x_{n}
+      \end{bmatrix} = 
+      \begin{bmatrix}
+            x_{1}^{2} & \dots & x_{i + n}x_{1} \\
+            \vdots    & \ddots & \vdots \\
+            x_{n}x_{1} & \dots & x_{i + n}^{2}
+      \end{bmatrix}
+\]
+
+\[
+E(VV') = E\bigg(\begin{bmatrix}
+            x_{1} \\ x_{2} \\ \vdots \\ x_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            x_{1} & x_{2} & \dots & x_{n}
+      \end{bmatrix}\bigg) = 
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix}
+\]
+
+Vea que \(\mu_{v}\mu_{v}'\) es otra matriz de la forma:
+
+\[
+\mu_{v}\mu_{v}' = \begin{bmatrix}
+            \mu_{1} \\ \mu_{2} \\ \vdots \\ \mu_{n}
+      \end{bmatrix}
+      \begin{bmatrix}
+            \mu_{1} & \mu_{2} & \dots & \mu_{n}
+      \end{bmatrix} = 
+      \begin{bmatrix}
+            \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+            \vdots    & \ddots & \vdots \\
+            \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix}
+\]
+
+Tenemos entonces que:
+
+\[
+\Sigma_{v} =       
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix} - 
+      \begin{bmatrix}
+            \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+            \vdots    & \ddots & \vdots \\
+            \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix} 
+      = 
+      \begin{bmatrix}
+            s_{1}^{2} & \dots & s_{i + n}s_{1} \\
+            \vdots    & \ddots & \vdots \\
+            s_{n}s_{1} & \dots & s_{i + n}^{2}
+      \end{bmatrix} 
+\] Esto es válido porque sabemos que dado \(x\) e \(y\) variables
+aleatorias: \(var(x) = E(x^2) - E(x)^2\),
+\(cov(x, y) = E(xy) - E(x)E(y)\).
+
+Reordenando todo:
+
+\[
+\Sigma_{v} + 
+      \begin{bmatrix}
+                  \mu_{1}^{2} & \dots & \mu_{i + n}\mu_{1} \\
+                  \vdots    & \ddots & \vdots \\
+                  \mu_{n}\mu_{1} & \dots & \mu_{i + n}^{2}
+      \end{bmatrix} = \Sigma_{v} +  \mu_{v}\mu_{v}' =      
+      \begin{bmatrix}
+            E(x_{1}^{2}) & \dots & E(x_{i + n}x_{1}) \\
+            \vdots    & \ddots & \vdots \\
+            E(x_{n}x_{1}) & \dots & E(x_{i + n}^{2})
+      \end{bmatrix} 
+      = E(VV') \;\;
+      \blacksquare
+\]
+
+\hypertarget{considere-una-distribuciuxf3n-normal-bivariada-con-mu_1-1-mu_23-sigma_11-2-sigma_22-1-y-p_12--.8}{%
+\paragraph{\texorpdfstring{9) Considere una distribución normal
+bivariada con \(\mu_{1} = 1\), \(\mu_{2}=3\), \(\sigma_{11} = 2\),
+\(\sigma_{22} =1\) y
+\(p_{12} =-.8\)}{9) Considere una distribución normal bivariada con \textbackslash mu\_\{1\} = 1, \textbackslash mu\_\{2\}=3, \textbackslash sigma\_\{11\} = 2, \textbackslash sigma\_\{22\} =1 y p\_\{12\} =-.8}}\label{considere-una-distribuciuxf3n-normal-bivariada-con-mu_1-1-mu_23-sigma_11-2-sigma_22-1-y-p_12--.8}}
+
+\textbf{a)} Escriba la densidad normal bivariada.\\
+\(p_{12} = \frac{\sigma_{12}}{\sqrt{\sigma_{11}}\sqrt{\sigma_{22}}}\)\\
+\(-.8 = \sigma_{12} \frac{1}{\sqrt{2}\sqrt{1}}\)
+\(\sigma_{12} = -.8\sqrt{2}\)
+
+\[
+\Sigma= \left(\begin{array}
+12 & -\sqrt{2}\cdot0.8\\
+-\sqrt{2}\cdot0.8 & 1
+\end{array}\right)
+\] Necesitamos \(|\Sigma^{-1}|\) que calculada en R da: \[
+\Sigma^{-1}= \left(\begin{array}
+11.3889 & 1.5713\\
+1.5713 & 2.7778
+\end{array}\right)
+\] Y el determinante de esta matriz: \(det(\Sigma^{-1}) = 1.3889\)\\
+Con estos datos entonces la formula es:\\
+\(f(x_{1}, x_{2}) = \frac{2}{2\pi \cdot 1.3889} \cdot exp((x_{1}-1)^2 \cdot 1.3889 + 2(x_2 -3)(x_1 -1)1.5713 + (x_2 -3)^22.7778 \cdot \frac{-1}{2})\)
+
+\textbf{b)} Escriba la expresión de distancia estadística al cuadrado
+\((x − \mu)′ \Sigma^{-1}(x − \mu)\) como una función cuadrática de
+\(x_1\) y \(x_2\).
+
+\[
+(distancia)^{2} =\left( \begin{bmatrix}
+x_1 \\
+x_2 
+\end{bmatrix}- \left[\begin{array}
+11 \\
+3 
+\end{array}\right]\right)^{'} \begin{bmatrix}
+1.3889 & 1.5713  \\
+1.5713 & 2.7778
+\end{bmatrix} \left( \begin{bmatrix}
+x_{1} \\
+x_{2}
+\end{bmatrix} - \begin{bmatrix}
+1 \\
+3
+\end{bmatrix}\right)
+\]
+
+\[
+(distancia)^2 = \begin{bmatrix}
+x_{1}-1 & x_{2}-3
+\end{bmatrix}  \begin{bmatrix}
+1.3889 & 1.5713  \\
+1.5713 & 2.7778
+\end{bmatrix} \begin{bmatrix}
+x_{1} -1 & x_{2}-3
+\end{bmatrix}
+\]
+
+\[ 
+(distancia)^2 = [\begin{array} {cc}
+1.3889(x_1 -1) + 1.5713(x_2 -3) &  1.5713(x_1 -1)+2.7778(x_2 -3) \end{array} ]  \left[  \begin{array}{cc}
+x_{1} -1 \\
+x_{2}-3
+\end{array} \right]
+\]
+
+\[
+(distancia)^2 = 1.3889(x_1 -1)^2 + 1.5713(x_2 -3)(x_1 -1) + 1.5713(x_1 -1)(x_2 -3) + 2.7778(x_2 -3)
+\]
+
+\hypertarget{sea-x-n_3mu-sigma-con-mu--314-y}{%
+\paragraph{\texorpdfstring{10) Sea \(X\) \(N_{3}(\mu, \Sigma)\) con
+\(\mu^{'} = [-3,1,4]\)
+y}{10) Sea X N\_\{3\}(\textbackslash mu, \textbackslash Sigma) con \textbackslash mu\^{}\{'\} = {[}-3,1,4{]} y}}\label{sea-x-n_3mu-sigma-con-mu--314-y}}
+
+\[
+\left(\begin{array} {cc} 
+1 & -2 & 0\\
+-2 & 5 & 0 \\
+0 & 0 & 2
+\end{array}\right)
+\]
+
+A)\(X_{1}\) y \(X_{2}\)
+
+\begin{quote}
+\(\sigma_{12} = \sigma_{21} = -2\) por lo tanto, son dependientes.
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\Alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \(X_{2}\) y \(X_{3}\)
+\end{enumerate}
+
+\begin{quote}
+\(\sigma_{13} = \sigma_{31} = 0\) por lo tanto, son independientes.
+\end{quote}
 
 \end{document}
