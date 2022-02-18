@@ -19,11 +19,19 @@ while 1:
     print("Mensaje recibido de ", clienteDireccion)
     print(mensaje)
 
-    if mensaje in files:
+    if mensaje == 'GET':
+        mensajeRespuesta = str(files)
+        conexionSocket.send(bytes(mensajeRespuesta, "utf-8"))
+        
+        mensaje = str( conexionSocket.recv(1024), "utf-8" )
+        print("Mensaje recibido de ", clienteDireccion)
+        print(mensaje)
 
-        fileObject = open("./files/"+ mensaje, "r")
-        mensajeRespuesta = fileObject.read()
-        print(mensajeRespuesta)
+        if mensaje in files:
+
+            fileObject = open("./files/"+ mensaje, "r")
+            mensajeRespuesta = fileObject.read()
+            print(mensajeRespuesta)
 
 
     else: 
