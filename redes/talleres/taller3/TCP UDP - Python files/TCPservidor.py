@@ -8,38 +8,61 @@ servidorSocket.listen(1)
 
 
 print("El servidor está listo para recibir mensajes")
-while 1:
+
+conexionSocket, clienteDireccion = 0, 0 
+files = ["Foto1", "Foto2", "Foto3"]
+print(files)
+
+while clienteDireccion == 0:
+
     conexionSocket, clienteDireccion = servidorSocket.accept()
     print("Conexión establecida con ", clienteDireccion)
-    mensaje = str( conexionSocket.recv(1024), "utf-8" )
 
-    files = listdir("./files")
-    print(files)
+# lista de mensajes solicitud del cliente
+new_messages = ['']
+
+while 1:
+
+    mensaje = str( conexionSocket.recv(1024), "utf-8" )
 
     print("Mensaje recibido de ", clienteDireccion)
     print(mensaje)
 
-    if mensaje == 'GET':
-        mensajeRespuesta = str(files)
+
+    if mensaje == 'FOTOS':
+
+        mensajeRespuesta = ",".join(files)
         conexionSocket.send(bytes(mensajeRespuesta, "utf-8"))
         
-        mensaje = str( conexionSocket.recv(1024), "utf-8" )
+        local_message = ""
+
+        while local_message == '':
+            local_message = str( conexionSocket.recv(1024), "utf-8" )
+            print("esperando...")
+
+
+        new_messages.append( local_message ) 
+
         print("Mensaje recibido de ", clienteDireccion)
-        print(mensaje)
+        print(local_message)
 
-        if mensaje in files:
+        if  (new_messages[-1] in ['1', '2', '3']) and (new_messages[-1] != new_messages[-2]):
+            conexionSocket.send(bytes('ACK', "utf-8"))
+                
+        elif (new_messages[-1] not in ['1', '2', '3']):
+            
+            conexionSocket.send(bytes('ERROR 404', "utf-8"))
 
-            fileObject = open("./files/"+ mensaje, "r")
-            mensajeRespuesta = fileObject.read()
-            print(mensajeRespuesta)
-
+        else:
+            conexionSocket.send(bytes('304', "utf-8"))
 
     else: 
 
         mensajeRespuesta = "ERROR 404"
+        conexionSocket.send(bytes(mensajeRespuesta, "utf-8"))
 
-    conexionSocket.send(bytes(mensajeRespuesta, "utf-8"))
-    conexionSocket.close()
+    if mensaje == 'EXIT':
+        conexionSocket.close()
 
 
 
