@@ -27,10 +27,47 @@ def EWMA(SampleRTT, alpha, Iteration_time):
                     name='Estimated RTT'))
     fig.show()
 
+    return EstimatedRTT_list
+
+
+def devRtt(sampleRtt: np.array, beta: float, estimatedRtt: list):
+
+
+    Iteration_time = np.arange(0,len(sampleRtt))
+    
+    estimatedRtt = np.array(estimatedRtt)
+    distance = np.abs(sampleRtt - estimatedRtt)
+
+    devRtt_list = []
+    devRtt_datapoint = distance[0]
+
+    for i in range(0, len(sampleRtt)):
+
+        devRtt_datapoint = (1-beta)*devRtt_datapoint + beta*distance[i]
+        devRtt_list.append(devRtt_datapoint)
+
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=Iteration_time, y=sampleRtt,
+                    mode='lines+markers',
+                    name='Sample RTT'))
+
+    fig.add_trace(go.Scatter(x=Iteration_time, y=devRtt_list,
+                    mode='lines+markers',
+                    name='Estimated DevRTT'))
+    fig.show()
+
+    pass
+
+
 def plot(option: int):
 
     print("Set alpha for EWMA routine (0<alpha<1)", end=" ")
     alpha = float(input())
+
+    print("Set beta for devRtt routine (0<beta<1)", end=" ")
+    beta = float(input())
+
 
     if option == 1:
 
@@ -44,25 +81,35 @@ def plot(option: int):
 
         if option == 1:
             EWMA(SampleRTT, alpha, Iteration_time)
-            EWMA(ms, alpha, seg)
+            #EWMA(ms, alpha, seg)
 
     if option == 2:
 
-        print(not('data.csv' in listdir('./')))
+        #crea los datos en caso de que falten
+        if 'data.csv' in listdir('./'):
 
-        if not ('data.csv' in listdir('./')):
+            SampleRTT = pd.read_csv('./data.csv')
+            npoints = SampleRTT.shape[0]
+            Iteration_time = np.arange(0, npoints)
 
-            create_random_points(5000, 5)
-            Iteration_time = np.arange(0, 5000)
+        else:
+
+            npoints = int(input("¿cuantos datos quiere?"))
+            create_random_points(npoints, 5)
+            Iteration_time = np.arange(0, npoints)
             SampleRTT = pd.read_csv('./data.csv')
 
-            print(SampleRTT)
+        estimated_rtt = EWMA(SampleRTT["# rtt"], alpha, Iteration_time)
+        devRtt(SampleRTT["# rtt"], beta, estimated_rtt)
+        #print(SampleRTT)
+        #EWMA(ms, alpha, seg)
 
     
 
 
 print("Select the input data option for EWMA routine")
 print("1. Create 200 samples randomly")
+print("2. Create n samples randomly (remove previous 'data.csv plz')")
 opcion = int(input())
 
 plot(opcion)
