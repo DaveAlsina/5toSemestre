@@ -1,0 +1,99 @@
+---
+title: "taller4"
+output: html_document
+date: '2022-03-11'
+---
+
+Un investigador bla bla bla ... 
+
+**A) con $\alpha = 0.05$, haga una prueba de hipótesis con el $T^{2}$ sobre si todas las medias son las mismas.**
+
+Primero definimos las variables:
+
+```{r}
+x_bar = rbind(46.1, 57.3, 50.4)
+S = matrix(c(101.3, 63.0, 71.0, 63.0, 80.2, 55.6, 71.0, 55.6, 97.4),
+           nrow = 3, ncol = 3)
+
+C = matrix(c(1, 1, -1, 0, 0,-1),
+           nrow = 2, ncol = 3)
+N = 40
+```
+
+*Una función para multiples usos:*
+
+```{r setup, include=TRUE}
+
+hypo_test_mean_comparisson_tsquared <- function(xbar, s, c, alpha, n){
+  
+  # xbar -> vector columna de las medias
+  # s -> matriz de covarianzas y varianzas
+  # c -> matriz de contraste
+  # n -> numero de muestras
+
+
+  q = dim(xbar)[1]
+  alpha = 0.05
+  
+  t_squared = n* t(c %*% xbar) %*% solve(c%*% s %*% t(c)) %*%(c %*% xbar) 
+  t_alpha = qf(p = 1-alpha, df1 = q-1 , df2 = n-q+1) * ((n-1)*(q-1)/(n-q+1))
+
+  #print("¿Se rechaza la hipótesis nula?")
+  #print( (t_squared > t_alpha)[1] )
+  
+  return( data.frame(t_squared, t_alpha) )
+}
+
+```
+
+*Los resultados son:*
+
+```{r}
+ans = hypo_test_mean_comparisson_tsquared(xbar = x_bar, 
+                           s = S, 
+                           c = C, 
+                           alpha = 0.05,
+                           n = N)
+
+ans
+```
+
+
+B) Juzgue las diferencias de los pares de medias de los índices usando intervalos de confianza $T^{2}$ simultáneos del 95%.
+
+```{r}
+
+hypo_test_mean_coparisson_by_intervals <- function(xbar, s, c, alpha, n){
+
+  # xbar -> vector columna de las medias
+  # s -> matriz de covarianzas y varianzas
+  # c -> matriz de contraste
+  # n -> numero de muestras
+
+  q = dim(xbar)[1]
+  alpha = 0.05
+  
+  delta_means = c%*%xbar
+  t_alpha = qf(p = 1-alpha, df1 = q-1 , df2 = n-q+1) * ((n-1)*(q-1)/(n-q+1))
+  var_mat = c%*% s %*% t(c)
+  
+  inf = delta_means %+% sqrt(t_alpha) %*% sqrt(var_mat/n)
+  sup = delta_means %-% sqrt(t_alpha) %*% sqrt(var_mat/n)
+  
+  print(inf)
+  print(sup)
+  return ()
+}
+
+```
+
+```{r}
+hypo_test_mean_coparisson_by_intervals(xbar = x_bar, 
+                                       s = S, 
+                                       c = C, 
+                                       alpha = 0.05,
+                                       n = N)
+
+```
+
+
