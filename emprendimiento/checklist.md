@@ -16,13 +16,13 @@
 **(tratar de ponerlo en términos de donde funcionaría idealmente el sistema de cultivos)**
 
 2.4 Tenemos que analizar también el potencial de los sistemas de cultivo hidroponico,
-que se puede cultivar y qué no. Cuales son las opciones de cultivo escalables.
+que se puede cultivar y qué no. Cuales son las opciones de cultivo escalables.			[X]
 
-2.5 Condiciones del cultivo escalables? climáticas y atmosféricas? ¿qué se hace ahí?
+2.5 Condiciones del cultivo escalables? climáticas y atmosféricas? ¿qué se hace ahí?		[]
 
-2.6 Cuáles son todas las condiciones que mide? 
-2.7 Como es que llegan los datos.
-2.8 Cantidad de plantas por metro cuadrado.
+2.6 Cuáles son todas las condiciones que mide? 							[X]
+2.7 Como es que llegan los datos.								[X]
+2.8 Cantidad de plantas por metro cuadrado.							[X]
 
 	
 
@@ -34,6 +34,30 @@ que se puede cultivar y qué no. Cuales son las opciones de cultivo escalables.
 
 
 5. validation (Evidencia primaria), market testing, 
+
+############################################################################################
+############################################################################################
+
+la idea es entonces
+que hagamos la parte de caracterizar a los diferentes clientes.
+
+Para ello se hace el buyer persona:
+
+-> yo me encargo del buyer persona del campesino. (Pedirle a mi mamá que me permita hablar
+denuevo con compañeros campesinos). ASAP		[prioridad 1]
+
+-> zonas potenciales para cultivar. (Por departamento) 	[prioridad 2]
+
+
+
+
+
+
+
+
+
+
+
 
 
 
