@@ -22,7 +22,7 @@ que se puede cultivar y qué no. Cuales son las opciones de cultivo escalables.	
 
 2.6 Cuáles son todas las condiciones que mide? 							[X]
 2.7 Como es que llegan los datos.								[X]
-2.8 Cantidad de plantas por metro cuadrado.							[X]
+2.8 Cantidad de plantas por metro cuadrado. 							[X]
 
 	
 
@@ -34,30 +34,6 @@ que se puede cultivar y qué no. Cuales son las opciones de cultivo escalables.	
 
 
 5. validation (Evidencia primaria), market testing, 
-
-############################################################################################
-############################################################################################
-
-la idea es entonces
-que hagamos la parte de caracterizar a los diferentes clientes.
-
-Para ello se hace el buyer persona:
-
--> yo me encargo del buyer persona del campesino. (Pedirle a mi mamá que me permita hablar
-denuevo con compañeros campesinos). ASAP		[prioridad 1]
-
--> zonas potenciales para cultivar. (Por departamento) 	[prioridad 2]
-
-
-
-
-
-
-
-
-
-
-
 
 
 
