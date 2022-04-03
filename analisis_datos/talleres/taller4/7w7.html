@@ -534,8 +534,8 @@ betas</code></pre>
   z_squared_inv = solve(t(z)%*%z)
   
   for (i in seq(1, nvars, by=1)){
-    sup = betas[i] + sqrt(z_squared_inv[i,i])*ratio
-    inf = betas[i] - sqrt(z_squared_inv[i,i])*ratio
+    sup = betas[i] + sqrt(z_squared_inv[i,i]*s_squared)*ratio
+    inf = betas[i] - sqrt(z_squared_inv[i,i]*s_squared)*ratio
     
     total &lt;- rbind(total, data.frame(inf, sup))
   }
@@ -545,10 +545,10 @@ betas</code></pre>
 
 intervals = get_interval_for_betas(z, y, betas, 0.05)
 intervals</code></pre>
-<pre><code>##          inf         sup
-## 1 -6.7870809 11.08303292
-## 2  0.7463046  2.81832787
-## 3 -4.3362142 -0.04045201</code></pre>
+<pre><code>##          inf       sup
+## 1 -44.024788 48.320740
+## 2  -3.571373  7.136006
+## 3 -13.287715  8.911049</code></pre>
 <p><strong>C) Comprueba la prueba de hipótesis nula de que sólo el
 coeficiente <span class="math inline">\(\beta_{1}\)</span> es
 cero</strong></p>
@@ -612,7 +612,7 @@ prediction = t(z0)%*%(betas)
 prediction</code></pre>
 <pre><code>##          [,1]
 ## [1,] 4.088541</code></pre>
-<pre class="r"><code>get_interval_for_y &lt;- function(betas, z, z0, y, alpha){
+<pre class="r"><code>get_interval_for_expected_y &lt;- function(betas, z, z0, y, alpha){
   
   # Dados:
   # betas: maximum likelihood estimator para los betas (vector columna)
@@ -645,6 +645,7 @@ prediction</code></pre>
   inferior = prediction - amplitude
   superior = prediction + amplitude
   
+
   return(data.frame(inferior, superior))
 }</code></pre>
 <p>Vea el intervalo para el <span class="math inline">\(E(Y |
@@ -652,16 +653,52 @@ Z_{0})\)</span>:</p>
 <pre class="r"><code># vector de input para hacer la predicción y estimación del intervalo
 z0 = rbind(1, 6, 4)
 
-get_interval_for_y(betas = betas, z = z, z0 = z0, y = y, alpha = 0.05)</code></pre>
+get_interval_for_expected_y(betas = betas, z = z, z0 = z0, y = y, alpha = 0.05)</code></pre>
 <pre><code>##    inferior superior
 ## 1 -5.794056 13.97114</code></pre>
 <p><strong>E) Determine el intervalo de confianza del <span class="math inline">\(95\%\)</span> para la predicción <span class="math inline">\((Y)\)</span> cuando <span class="math inline">\(z_{1} = 6\)</span> y <span class="math inline">\(z_{2} = 4\)</span></strong></p>
+<pre class="r"><code>get_interval_for_y &lt;- function(betas, z, z0, y, alpha){
+  
+  # Dados:
+  # betas: maximum likelihood estimator para los betas (vector columna)
+  # z: matriz de datos donde cada columna representa una variable distinta
+  # z0: datos input para predecir la función y (vector columna)
+  # y: (vector columna) de las observaciones
+  # alpha: nivel de confianza
+  
+  # Retorna:
+  # intervalos de confianza superior e inferior para
+  # el valor esperado de Y, dado z0 como input
+  
+  # numero total de datos
+  ndatapoints = dim(z)[1]
+  
+  # numero total de variables
+  nvars = dim(z)[2]
+  
+  # sum of squares of deviations, entre lo observado 
+  # y lo calculado
+  sum_of_squared_errors = get_error(betas, z, y)
+  
+  # s^2
+  s_squared = sum_of_squared_errors/(ndatapoints - nvars -1)
+  
+  prediction = t(z0) %*% betas
+  amplitude = qt(p = 1-alpha, df = (ndatapoints - nvars -1))
+  amplitude = amplitude * sqrt( (1 + (t(z0) %*% solve(t(z)%*%z) %*% z0) ) * s_squared)
+  
+  inferior = prediction - amplitude
+  superior = prediction + amplitude
+  
+
+  return(data.frame(inferior, superior))
+}</code></pre>
 <pre class="r"><code># vector de input para hacer la predicción y estimación del intervalo
 z0 = rbind(1, 6, 4)
 
 get_interval_for_y(betas = betas, z = z, z0 = z0, y = y, alpha = 0.05)</code></pre>
-<pre><code>##    inferior superior
-## 1 -5.794056 13.97114</code></pre>
+<pre><code>##   inferior superior
+## 1  -13.949 22.12608</code></pre>
 </div>
 
 

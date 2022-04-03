@@ -195,8 +195,8 @@ get_interval_for_betas <- function(z, y, betas, alpha){
   z_squared_inv = solve(t(z)%*%z)
   
   for (i in seq(1, nvars, by=1)){
-    sup = betas[i] + sqrt(z_squared_inv[i,i]*s_squared)*ratio
-    inf = betas[i] - sqrt(z_squared_inv[i,i]*s_squared)*ratio
+    sup = betas[i] + sqrt(z_squared_inv[i,i])*ratio
+    inf = betas[i] - sqrt(z_squared_inv[i,i])*ratio
     
     total <- rbind(total, data.frame(inf, sup))
   }
@@ -280,7 +280,7 @@ prediction
 
 ```{r}
 
-get_interval_for_expected_y <- function(betas, z, z0, y, alpha){
+get_interval_for_y <- function(betas, z, z0, y, alpha){
   
   # Dados:
   # betas: maximum likelihood estimator para los betas (vector columna)
@@ -313,7 +313,6 @@ get_interval_for_expected_y <- function(betas, z, z0, y, alpha){
   inferior = prediction - amplitude
   superior = prediction + amplitude
   
-
   return(data.frame(inferior, superior))
 }
 ```
@@ -324,50 +323,10 @@ Vea el intervalo para el $E(Y | Z_{0})$:
 # vector de input para hacer la predicción y estimación del intervalo
 z0 = rbind(1, 6, 4)
 
-get_interval_for_expected_y(betas = betas, z = z, z0 = z0, y = y, alpha = 0.05)
+get_interval_for_y(betas = betas, z = z, z0 = z0, y = y, alpha = 0.05)
 ```
 
 **E) Determine el intervalo de confianza del $95\%$ para la predicción $(Y)$ cuando $z_{1} = 6$ y $z_{2} = 4$**
-
-```{r}
-
-get_interval_for_y <- function(betas, z, z0, y, alpha){
-  
-  # Dados:
-  # betas: maximum likelihood estimator para los betas (vector columna)
-  # z: matriz de datos donde cada columna representa una variable distinta
-  # z0: datos input para predecir la función y (vector columna)
-  # y: (vector columna) de las observaciones
-  # alpha: nivel de confianza
-  
-  # Retorna:
-  # intervalos de confianza superior e inferior para
-  # el valor esperado de Y, dado z0 como input
-  
-  # numero total de datos
-  ndatapoints = dim(z)[1]
-  
-  # numero total de variables
-  nvars = dim(z)[2]
-  
-  # sum of squares of deviations, entre lo observado 
-  # y lo calculado
-  sum_of_squared_errors = get_error(betas, z, y)
-  
-  # s^2
-  s_squared = sum_of_squared_errors/(ndatapoints - nvars -1)
-  
-  prediction = t(z0) %*% betas
-  amplitude = qt(p = 1-alpha, df = (ndatapoints - nvars -1))
-  amplitude = amplitude * sqrt( (1 + (t(z0) %*% solve(t(z)%*%z) %*% z0) ) * s_squared)
-  
-  inferior = prediction - amplitude
-  superior = prediction + amplitude
-  
-
-  return(data.frame(inferior, superior))
-}
-```
 
 ```{r}
 # vector de input para hacer la predicción y estimación del intervalo
