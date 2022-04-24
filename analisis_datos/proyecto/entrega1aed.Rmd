@@ -1,0 +1,69 @@
+---
+title: "entrega1aed"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+**1. Incluimos los datos:**
+
+```{r}
+data = read.csv('./Resultados_de_An_lisis_de_Laboratorio_Suelos_en_Colombia.csv')
+```
+
+Seleccionamos las variables que nos interesan para nuestro análisis
+
+```{r}
+vars = c('Departamento', 'Municipio', 'Cultivo', 'Topografia', 'Drenaje',
+          'Riego', 'pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+          'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+          'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+          'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+          'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+          'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+          'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m', 'Hierro..Fe..disponible.olsen.mg.kg',
+          'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+          'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg', 
+          'Hierro..Fe..disponible.doble..cido.mg.kg', 'Cobre..Cu..disponible.doble.acido.mg.kg',
+          'Manganeso..Mn..disponible.doble.acido.mg.kg', 'Zinc..Zn..disponible.doble..cido.mg.kg' )
+data = data[, vars]
+head(data)
+```
+
+**2. Hacemos una adaptación de los datos para que queden en los tipos de dato correctos**
+
+
+
+```{r}
+numeric_vars = c('pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+                   'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+                  'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+                  'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+                  'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+                  'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+                  'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m', 'Hierro..Fe..disponible.olsen.mg.kg',
+                  'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+                  'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg', 
+                  'Hierro..Fe..disponible.doble..cido.mg.kg', 'Cobre..Cu..disponible.doble.acido.mg.kg',
+                  'Manganeso..Mn..disponible.doble.acido.mg.kg', 'Zinc..Zn..disponible.doble..cido.mg.kg' )
+
+for (col in numeric_vars){
+    print(col)
+    #data = suppressWarnings(transform(data, col = as.numeric(as.character(col)) ))
+    data[col] = as.character(data[col])
+}
+
+#data
+```
+
+
+
+```{r}
+#summary(data)
+```
+
+**2.
