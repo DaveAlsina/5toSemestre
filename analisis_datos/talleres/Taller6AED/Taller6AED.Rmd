@@ -1,0 +1,156 @@
+---
+title: "Taller6AED"
+author: "David Alsina, Estefanía Laverda, María Fernanda Palacio"
+date: "4/29/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r, include=FALSE}
+library(expm)
+```
+
+## 1. considere la matriz de covarianza para el vector aleatorio X
+```{r}
+Sigma11 = cbind(c(100,0),c(0,1))
+Sigma22 = cbind(c(1,0),c(0,100))
+Sigma12 = cbind(c(0,0.95),c(0,0))
+```
+
+```{r}
+#Values of U
+newMatrix1= solve(sqrtm(Sigma11))%*%Sigma12%*%solve(Sigma22)%*%t(Sigma12)%*%solve(sqrtm(Sigma11))
+eigenvectors1= eigen(newMatrix1)$vectors
+
+a1 = eigenvectors1[,1]%*%solve(sqrtm(Sigma11))
+a2 = eigenvectors1[,2]%*%solve(sqrtm(Sigma11))
+print(c(a1,a2))
+```
+
+```{r}
+#Values of V
+newMatrix2= solve(sqrtm(Sigma22))%*%t(Sigma12)%*%solve(Sigma11)%*%Sigma12%*%solve(sqrtm(Sigma22))
+eigenvectors2 = eigen(newMatrix2)$vectors
+
+b1 = eigenvectors2[,1]%*%solve(sqrtm(Sigma22))
+b2 = eigenvectors2[,2]%*%solve(sqrtm(Sigma22))
+print(c(b1,b2))
+```
+
+Luego las variables canónicas son  
+
+$U = X_2^{(1)}-0.1X_1^{(2)}$  
+
+y  
+
+$V = -X_1^{(1)}-0.1X_2^{(2)}$  
+
+Ahora se calculan las correlaciones canónicas
+```{r}
+corr1 = sqrt(eigen(newMatrix1)$values)
+
+print(corr1)
+```
+
+Luego $U_1$ tiene una correlación de 0.95 con $V_1$ y $U_2$ tiene una correlación de 0.00 con $V_2$. 
+
+```{r, include = FALSE}
+#Clear workspace to use the same variables hehe
+rm(list = ls())
+```
+
+
+## 2. considere el vecto aleatorio con media $\mu$ y covarianza $\Sigma$
+```{r}
+Sigma11 = cbind(c(8,2),c(2,5))
+Sigma22 = cbind(c(6,-2),c(-2,7))
+Sigma12 = cbind(c(3,-1),c(1,3))
+```
+
+```{r}
+#Values of U
+newMatrix1= solve(sqrtm(Sigma11))%*%Sigma12%*%solve(Sigma22)%*%t(Sigma12)%*%solve(sqrtm(Sigma11))
+eigenvectors1= eigen(newMatrix1)$vectors
+
+a1 = eigenvectors1[,1]%*%solve(sqrtm(Sigma11))
+a2 = eigenvectors1[,2]%*%solve(sqrtm(Sigma11))
+print(c(a1,a2))
+```
+
+```{r}
+#Values of V
+newMatrix2= solve(sqrtm(Sigma22))%*%t(Sigma12)%*%solve(Sigma11)%*%Sigma12%*%solve(sqrtm(Sigma22))
+eigenvectors2 = eigen(newMatrix2)$vectors
+
+b1 = eigenvectors2[,1]%*%solve(sqrtm(Sigma22))
+b2 = eigenvectors2[,2]%*%solve(sqrtm(Sigma22))
+print(c(b1,b2))
+```
+
+Luego las variables canónicas son  
+
+$U = -0.3168206^{(1)} +0.3622269X_2^{(1)}-0.1962489^{(2)}-0.3016851X_2^{(2)}$  
+
+y  
+
+$V = -0.36470579X_1^{(1)} +0.09506271X_2^{(1)}-0.22627464X_1^{(2)}-0.38582097X_2^{(2)}$  
+
+Ahora se calculan las correlaciones canónicas
+```{r}
+corr1 = sqrt(eigen(newMatrix1)$values)
+
+print(corr1)
+```
+
+Luego $U_1$ tiene una correlación de 0.5519301 con $V_1$ y $U_2$ tiene una correlación de 0.4898610 con $V_2$.
+
+```{r, include = FALSE}
+#Clear workspace to use the same variables hehe
+rm(list = ls())
+```
+
+## 3. considere el vecto aleatorio con media $\mu$ y covarianza $\Sigma$
+```{r}
+Ro11 = cbind(c(1,0.615),c(0.615,1))
+Ro22 = cbind(c(1,-0.269),c(-0.269,1))
+Ro12 = t(cbind(c(-0.111 ,-0.266),c(-0.195,-0.085)))
+```
+
+```{r}
+#Values of U
+newMatrix1= solve(sqrtm(Ro11))%*%Ro12%*%solve(Ro22)%*%t(Ro12)%*%solve(sqrtm(Ro11))
+eigenvectors1= eigen(newMatrix1)$vectors
+
+a1 = eigenvectors1[,1]%*%solve(sqrtm(Ro11))
+a2 = eigenvectors1[,2]%*%solve(sqrtm(Ro11))
+print(c(a1,a2))
+```
+
+```{r}
+#Values of V
+newMatrix2= solve(sqrtm(Ro22))%*%t(Ro12)%*%solve(Ro11)%*%Ro12%*%solve(sqrtm(Ro22))
+eigenvectors2 = eigen(newMatrix2)$vectors
+
+b1 = eigenvectors2[,1]%*%solve(sqrtm(Ro22))
+b2 = eigenvectors2[,2]%*%solve(sqrtm(Ro22))
+print(c(b1,b2))
+```
+
+Luego las variables canónicas son  
+
+$U = -1.001589761 X_1^{(1)} +0.002588365X_2^{(1)}+0.777892519^{(2)}-1.268184577X_2^{(2)}$  
+
+y  
+
+$V = 0.6016105X_1^{(1)} +0.9768515X_2^{(1)}-0.8462094 X_1^{(2)}+0.3518049X_2^{(2)}$  
+
+Ahora se calculan las correlaciones canónicas
+```{r}
+corr1 = sqrt(eigen(newMatrix1)$values)
+
+print(corr1)
+```
+
+Luego $U_1$ tiene una correlación de 0.3266219  con $V_1$ y $U_2$ tiene una correlación de 0.1710696 con $V_2$.
+Estos valores indican que la correlación máxima que se va a obtener entre las variables es de 0.3266219, y esta está explicada por los valores -1.001589761 asociado a la variable $X_1^{(1)}$ y el valor $0.9768515$ asociado a $X_2^{(1)}$. A su vez, lo que se está mostrando en términos del problema es que los homicidios primarios están muy relacionados a la severidad de los castigos.
+
