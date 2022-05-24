@@ -1,0 +1,122 @@
+---
+title: "PCAProyecto"
+author: "David Alsina, Estefanía Laverde, María Fernanda Palacio"
+date: "5/13/2022"
+output: html_document
+---
+```{r, include = FALSE}
+#Libraries
+
+library("factoextra")
+library("corrplot")
+library("psych")
+```
+
+```{r}
+#Read organized data
+data = read.csv('/home/dave/Documents/univ/5toSemestre/analisis_datos/proyecto/proyectoAED/proyectoAED/data_bonita.csv')
+```
+
+```{r}
+#Useful variables 
+numeric_vars_ok = c("pH.agua.suelo.2.5.1.0", "Materia.organica..MO...",
+                    "Fosforo..P..Bray.II.mg.kg", "Azufre..S..Fosfato.monocalcico.mg.kg",
+                    "Acidez..Al.H..KCL.cmol....kg", "Aluminio..Al..intercambiable.cmol....kg",
+                    "Calcio..Ca..intercambiable.cmol....kg", "Magnesio..Mg..intercambiable.cmol....kg",
+                    "Potasio..K..intercambiable.cmol....kg", "Sodio..Na..intercambiable.cmol....kg",
+                    "capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg",
+                    "Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m",
+                    "Hierro..Fe..disponible.olsen.mg.kg",
+                    "Cobre..Cu..disponible.mg.kg", "Manganeso..Mn..disponible.Olsen.mg.kg",
+                    "Zinc..Zn..disponible.Olsen.mg.kg", "Boro..B..disponible.mg.kg")
+
+
+```
+
+```{r}
+#Estandarización de los datos
+#Dataframe con los datos numéricos
+numeric_data = data[ , numeric_vars_ok]
+
+#Datos estandarizados
+numeric_data = scale(numeric_data)
+```
+
+
+```{r}
+#principal component analysis
+componentes_principales = prcomp(numeric_data)
+#summary(componentes_principales)
+
+#Mirar los loadings
+#Graficar los scores: combinacion lineal
+```
+```{r}
+eig.val <- get_eigenvalue(componentes_principales)
+eig.val
+```
+```{r}
+#Visualize eigenvalues
+fviz_eig(componentes_principales, addlabels = TRUE)
+```
+
+```{r}
+var <- get_pca_var(componentes_principales)
+head(var$coord, 17)
+```
+
+```{r fig.height=5, fig.width=12}
+var <- get_pca_var(componentes_principales)
+corrplot(var$cos2, is.corr = FALSE)
+```
+
+
+```{r}
+fviz_pca_ind(componentes_principales,
+          col.ind = "cos2", # Color by the quality of representation
+           gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+          repel = TRUE     # Avoid text overlapping
+           )
+```
+Hay observaciones anomalas
+ver numero de observaciones anomalas
+
+```{r}
+fviz_pca_var(componentes_principales, col.var = "cos2", 
+             geom.var = "arrow", 
+             labelsize = 2, 
+             repel = FALSE)+theme_minimal()
+
+```
+
+
+```{r fig.height=10, fig.width=10}
+fviz_pca_var(componentes_principales,
+             col.var = "contrib", # Color by contributions to the PC
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE     # Avoid text overlapping
+             )
+```
+
+```{r fig.height=10, fig.width=10}
+fviz_pca_var(componentes_principales,
+             col.var = "contrib", # Color by contributions to the PC
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE,     # Avoid text overlapping
+             axes = c(3,4)
+             )
+```
+
+
+```{r}
+pricomps = as.data.frame(componentes_principales$x)
+plot(numeric_data$Magnesio..Mg..intercambiable.cmol....kg, pricomps$PC1)
+```
+
+
+
+```{r fig.height=10, fig.width=14}
+fviz_pca_biplot(componentes_principales, repel = TRUE, addEllipses = TRUE, habillage = data$Departamento, geom = "point")
+```
+
+

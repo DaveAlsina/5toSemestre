@@ -1,0 +1,97 @@
+---
+title: "regresionProyecto"
+author: "David Alsina, Estefanía Laverde, María Fernanda Palacio"
+date: "5/13/2022"
+output: html_document
+---
+
+```{r, include = FALSE}
+#Libraries
+
+library("factoextra")
+library("corrplot")
+library("psych")
+library("MASS")
+```
+
+```{r}
+#Read organized data
+data = read.csv('/home/dave/Documents/univ/5toSemestre/analisis_datos/proyecto/proyectoAED/proyectoAED/data_bonita.csv')
+```
+
+```{r}
+#Useful variables 
+vars_ok = c('Departamento', 'Municipio', 'Cultivo',
+                    'Topografia', 'Drenaje', 'Riego',
+                    'pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+                    'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+                    'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+                    'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+                    'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+                    'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+                    'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m',
+                    'Hierro..Fe..disponible.olsen.mg.kg',
+                    'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+                    'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg')
+
+numeric_vars_ok = c("pH.agua.suelo.2.5.1.0", "Materia.organica..MO...",
+                    "Fosforo..P..Bray.II.mg.kg", "Azufre..S..Fosfato.monocalcico.mg.kg",
+                    "Acidez..Al.H..KCL.cmol....kg", "Aluminio..Al..intercambiable.cmol....kg",
+                    "Calcio..Ca..intercambiable.cmol....kg", "Magnesio..Mg..intercambiable.cmol....kg",
+                    "Potasio..K..intercambiable.cmol....kg", "Sodio..Na..intercambiable.cmol....kg",
+                    "capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg",
+                    "Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m",
+                    "Hierro..Fe..disponible.olsen.mg.kg",
+                    "Cobre..Cu..disponible.mg.kg", "Manganeso..Mn..disponible.Olsen.mg.kg",
+                    "Zinc..Zn..disponible.Olsen.mg.kg", "Boro..B..disponible.mg.kg")
+
+
+```
+
+```{r}
+#Dataframe con los datos numéricos
+numeric_data = data[ , numeric_vars_ok]
+
+#Datos estandarizados
+numeric_data = as.data.frame(scale(numeric_data))
+```
+
+
+```{r}
+#principal component analysis
+componentes_principales = prcomp(numeric_data)
+```
+
+```{r}
+# Fit the full model 
+full.model <- lm(numeric_data$capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg + numeric_data$pH.agua.suelo.2.5.1.0~.,data = numeric_data)
+# Stepwise regression model
+step.model <- stepAIC(full.model, direction = "both", 
+                      trace = FALSE)
+summary(step.model)
+```
+
+
+
+
+
+```{r}
+fviz_nbclust(x = numeric_data, FUNcluster = kmeans, method = "wss", k.max = 15, 
+             diss = get_dist(data, method = "euclidean"), nstart = 50)
+```
+
+
+```{r fig.height=8, fig.width=8}
+set.seed(123)
+km_clusters <- kmeans(x = numeric_data, centers = 10, nstart = 50)
+
+# Las funciones del paquete factoextra emplean el nombre de las filas del
+# dataframe que contiene los datos como identificador de las observaciones.
+# Esto permite añadir labels a los gráficos.
+fviz_cluster(object = km_clusters, data = numeric_data, show.clust.cent = TRUE,
+             ellipse.type = "euclid", star.plot = TRUE, repel = TRUE, geom = "points") +
+  labs(title = "Resultados clustering K-means") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+

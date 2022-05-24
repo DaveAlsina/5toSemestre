@@ -1,0 +1,134 @@
+---
+title: "entrega1aed"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+**1. Incluimos los datos:**
+
+```{r}
+data = read.csv('/home/turing/Documents/aed/data/data.csv')
+```
+
+Seleccionamos las variables que nos interesan para nuestro análisis
+
+```{r}
+vars = c('Departamento', 'Municipio', 'Cultivo', 'Topografia', 'Drenaje',
+          'Riego', 'pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+          'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+          'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+          'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+          'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+          'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+          'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m', 'Hierro..Fe..disponible.olsen.mg.kg',
+          'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+          'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg', 
+          'Hierro..Fe..disponible.doble..cido.mg.kg', 'Cobre..Cu..disponible.doble.acido.mg.kg',
+          'Manganeso..Mn..disponible.doble.acido.mg.kg', 'Zinc..Zn..disponible.doble..cido.mg.kg' )
+data = data[, vars]
+
+print("Dimensiones de los datos:")
+print(dim(data))
+head(data)
+```
+
+**2. Hacemos una adaptación de los datos para que queden en los tipos de dato correctos**
+
+
+
+```{r}
+numeric_vars = c('pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+                   'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+                  'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+                  'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+                  'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+                  'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+                  'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m', 'Hierro..Fe..disponible.olsen.mg.kg',
+                  'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+                  'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg', 
+                  'Hierro..Fe..disponible.doble..cido.mg.kg', 'Cobre..Cu..disponible.doble.acido.mg.kg',
+                  'Manganeso..Mn..disponible.doble.acido.mg.kg', 'Zinc..Zn..disponible.doble..cido.mg.kg' )
+
+#as.numeric(unlist(data['Materia.orgánica..MO...']))
+for (col in numeric_vars){
+    print(col)
+    #data = suppressWarnings(transform(data, col =  col  ) )
+    #print(transform(data, col =  col  ))
+    data[col] = as.numeric(unlist(data[col]))
+    
+
+}
+#data
+```
+
+
+Observe que hay muchos NaN en las ultimas variables seleccionadas:
+
+```{r}
+summary(data)
+```
+
+Los vamos a quitar y quedamos con solo el 20% aprox. de la base de datos original:
+
+
+```{r}
+vars_ok = c('Departamento', 'Municipio', 'Cultivo',
+                    'Topografia', 'Drenaje', 'Riego',
+                    'pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+                    'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+                    'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+                    'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+                    'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+                    'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+                    'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m',
+                    'Hierro..Fe..disponible.olsen.mg.kg',
+                    'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+                    'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg')
+
+numeric_vars_ok = c('pH.agua.suelo.2.5.1.0', 'Materia.orgánica..MO...',
+                    'Fósforo..P..Bray.II.mg.kg', 'Azufre..S..Fosfato.monocalcico.mg.kg',
+                    'Acidez..Al.H..KCL.cmol....kg', 'Aluminio..Al..intercambiable.cmol....kg',
+                    'Calcio..Ca..intercambiable.cmol....kg', 'Magnesio..Mg..intercambiable.cmol....kg',
+                    'Potasio..K..intercambiable.cmol....kg', 'Sodio..Na..intercambiable.cmol....kg',
+                    'capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg',
+                    'Conductividad.el.ctrica..CE..relacion.2.5.1.0.dS.m',
+                    'Hierro..Fe..disponible.olsen.mg.kg',
+                    'Cobre..Cu..disponible.mg.kg', 'Manganeso..Mn..disponible.Olsen.mg.kg',
+                    'Zinc..Zn..disponible.Olsen.mg.kg', 'Boro..B..disponible.mg.kg')
+
+data = data[vars_ok]
+data = na.omit(data)
+
+print("Dimensiones de los datos:")
+print(dim(data))
+ 
+summary(na.omit(data))
+write.csv(data, '/home/turing/Documents/aed/data/data_bonita.csv', row.names = FALSE)
+```
+
+
+```{r}
+componentes_principales = princomp(data[numeric_vars_ok])
+summary(componentes_principales)
+componentes_principales
+```
+
+```{r}
+#lm(data[numeric_vars_ok[1,]]~data[numeric_vars_ok[2,:]])
+#data[]
+nvars = length(numeric_vars_ok)
+
+print(data[numeric_vars_ok[1]])
+phjiji = cbind(unlist(data[numeric_vars_ok[1]]))
+materiaOrganicaxd = cbind(unlist(data[numeric_vars_ok[2]]))
+
+regre = lm(phjiji~ materiaOrganicaxd )
+summary(regre)
+```
+
+es significativo materia organica pero no explica todo del ph -> faltan variables
