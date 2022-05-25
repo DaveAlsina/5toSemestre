@@ -39,13 +39,13 @@ numeric_vars_ok = c("pH.agua.suelo.2.5.1.0", "Materia.organica..MO...",
 numeric_data = data[ , numeric_vars_ok]
 
 #Datos estandarizados
-numeric_data = scale(numeric_data)
+#numeric_data = scale(numeric_data)
 ```
 
 
 ```{r}
 #principal component analysis
-componentes_principales = prcomp(numeric_data)
+componentes_principales = prcomp(numeric_data, center = TRUE, scale. = TRUE)
 #summary(componentes_principales)
 
 #Mirar los loadings

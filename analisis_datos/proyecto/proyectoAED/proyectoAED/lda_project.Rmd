@@ -1,0 +1,54 @@
+---
+title: "lda_project"
+author: "Mafe"
+date: "25/5/2022"
+output: html_document
+---
+
+```{r, include=FALSE}
+
+library(MASS)
+library(dplyr)
+library(magrittr)
+library(caret)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+## LDA
+
+
+```{r}
+data1 = read.csv('/home/dave/Documents/univ/5toSemestre/analisis_datos/proyecto/proyectoAED/proyectoAED/data_bonita_ph.csv', row.names = NULL)
+```
+
+Iniciamos hacer el LDA 
+```{r}
+#a = data1$NivelDePH
+#data1=cbind(data1, NivelDePH=a)
+
+#nuevodato =data1[data1$pH.agua.suelo.2.5.1.0 > 3 | data1$pH.agua.suelo.2.5.1.0 < 6]
+#data1=cbind(nuevodato,nivel.ph = )
+```
+
+```{r}
+set.seed(200)
+#Aquí estamos dividiendo el conjuntO de datos en 70% training
+training.samples <- data$NivelDePH %>% createDataPartition(p=0.7, list=FALSE)
+train.data <- data[training.samples, ]
+#Aquí depositamos el 30% restante para probar
+test.data <- data[-training.samples, ]
+
+preproc.param <- train.data %>% preProcess(method=c("center","scale"))
+train.transformed.data <- preproc.param %>% predict(train.data)
+test.transformed.data <- preproc.param %>% predict(test.data)
+```
+
+```{r}
+#Estimación del modelo mediante LDA
+model_data<-lda(NivelDePH~., data=train.transformed.data)
+#Predicciones del modelo
+predictions_data <- model_data %>%predict(test.transformed.data)
+#Gaficamos las respuestas del modelo
+model_data
+```
+

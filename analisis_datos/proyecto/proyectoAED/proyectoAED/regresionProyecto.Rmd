@@ -72,18 +72,25 @@ summary(step.model)
 ```
 
 
+Clustering
+-------------------------------------------------------------------------------------
+
+```{r}
+scores = as.data.frame( componentes_principales$x[,1:9] ) 
+dim(scores)
+```
 
 
 
 ```{r}
-fviz_nbclust(x = numeric_data, FUNcluster = kmeans, method = "wss", k.max = 15, 
+fviz_nbclust(x = scores, FUNcluster = kmeans, method = "wss", k.max = 15, 
              diss = get_dist(data, method = "euclidean"), nstart = 50)
 ```
 
 
 ```{r fig.height=8, fig.width=8}
 set.seed(123)
-km_clusters <- kmeans(x = numeric_data, centers = 10, nstart = 50)
+km_clusters <- kmeans(x = scores, centers = 8, nstart = 50)
 
 # Las funciones del paquete factoextra emplean el nombre de las filas del
 # dataframe que contiene los datos como identificador de las observaciones.
