@@ -194,7 +194,7 @@ class Graph(Node):
         # total time taken
         print("\n ----------------- Execution Time ---------------------- \n")
 
-        print(f"Runtime of Dijkstra's Algorithm is {end - start}")
+        print("Runtime of Dijkstra's Algorithm is {end - start}".format(end, start))
 
         print("\n ----------------- Number of Iterations ---------------- \n")
         print("Dijkstra took {0} iterations to finish".format(it))
