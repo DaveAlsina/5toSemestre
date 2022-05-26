@@ -45,34 +45,31 @@ numeric_vars_ok = c("pH.agua.suelo.2.5.1.0", "Materia.organica..MO...",
                     "Cobre..Cu..disponible.mg.kg", "Manganeso..Mn..disponible.Olsen.mg.kg",
                     "Zinc..Zn..disponible.Olsen.mg.kg", "Boro..B..disponible.mg.kg")
 
+numeric_vars_ok_minerales = c("Fosforo..P..Bray.II.mg.kg", "Azufre..S..Fosfato.monocalcico.mg.kg",
+                              "Aluminio..Al..intercambiable.cmol....kg",
+                              "Calcio..Ca..intercambiable.cmol....kg", "Magnesio..Mg..intercambiable.cmol....kg",
+                              "Potasio..K..intercambiable.cmol....kg", "Sodio..Na..intercambiable.cmol....kg",
+                              "Hierro..Fe..disponible.olsen.mg.kg",
+                              "Cobre..Cu..disponible.mg.kg", "Manganeso..Mn..disponible.Olsen.mg.kg",
+                              "Zinc..Zn..disponible.Olsen.mg.kg", "Boro..B..disponible.mg.kg")
+
+
 
 ```
 
 ```{r}
 #Dataframe con los datos numéricos
-numeric_data = data[ , numeric_vars_ok]
-
-#Datos estandarizados
-numeric_data = as.data.frame(scale(numeric_data))
+numeric_data = data[ , numeric_vars_ok_minerales]
 ```
 
 
 ```{r}
 #principal component analysis
-componentes_principales = prcomp(numeric_data)
-```
-
-```{r}
-# Fit the full model 
-full.model <- lm(numeric_data$capacidad.de.intercambio.cationico..CICE..suma.de.bases.cmol....kg + numeric_data$pH.agua.suelo.2.5.1.0~.,data = numeric_data)
-# Stepwise regression model
-step.model <- stepAIC(full.model, direction = "both", 
-                      trace = FALSE)
-summary(step.model)
+componentes_principales = prcomp(numeric_data, center = TRUE, scale = TRUE)
 ```
 
 
-Clustering
+# Clustering sobre los scores
 -------------------------------------------------------------------------------------
 
 ```{r}
@@ -80,22 +77,60 @@ scores = as.data.frame( componentes_principales$x[,1:9] )
 dim(scores)
 ```
 
-
-
 ```{r}
-fviz_nbclust(x = scores, FUNcluster = kmeans, method = "wss", k.max = 15, 
-             diss = get_dist(data, method = "euclidean"), nstart = 50)
+fviz_nbclust(x = scores, FUNcluster = kmeans, method = "wss", k.max = 15, nstart = 50)
 ```
 
 
 ```{r fig.height=8, fig.width=8}
 set.seed(123)
-km_clusters <- kmeans(x = scores, centers = 8, nstart = 50)
+km_clusters <- kmeans(x = scores, centers = 13, nstart = 50)
 
 # Las funciones del paquete factoextra emplean el nombre de las filas del
 # dataframe que contiene los datos como identificador de las observaciones.
 # Esto permite añadir labels a los gráficos.
-fviz_cluster(object = km_clusters, data = numeric_data, show.clust.cent = TRUE,
+fviz_cluster(object = km_clusters, data = scores, show.clust.cent = TRUE,
+             ellipse.type = "euclid", star.plot = TRUE, repel = TRUE, geom = "points") +
+  labs(title = "Resultados clustering K-means") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+```{r}
+km_clusters$centers
+```
+
+
+
+
+# Clustering sin los outliers
+-------------------------------------------------------------------------------------
+
+```{r}
+z_scores <- as.data.frame(sapply(numeric_data, function(numeric_data) (abs(numeric_data-mean(numeric_data))/sd(numeric_data))))
+z_scores
+```
+
+
+```{r}
+#only keep rows in dataframe with all z-scores less than absolute value of 3 
+no_outliers <- numeric_data[!rowSums(z_scores>3), ]
+dim(no_outliers)
+```
+
+```{r}
+fviz_nbclust(x = no_outliers, FUNcluster = kmeans, method = "wss", k.max = 15, 
+             nstart = 50)
+```
+
+```{r}
+set.seed(123)
+km_clusters <- kmeans(x = no_outliers, centers = 13, nstart = 50)
+
+# Las funciones del paquete factoextra emplean el nombre de las filas del
+# dataframe que contiene los datos como identificador de las observaciones.
+# Esto permite añadir labels a los gráficos.
+fviz_cluster(object = km_clusters, data = no_outliers, show.clust.cent = TRUE,
              ellipse.type = "euclid", star.plot = TRUE, repel = TRUE, geom = "points") +
   labs(title = "Resultados clustering K-means") +
   theme_bw() +
