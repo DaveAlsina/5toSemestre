@@ -2,15 +2,12 @@
 # Universidad del Rosario - School of Engineering, Science and Technology
 # Pr. David Celeita
 from Proyecto_Final_Redes import *
-import cv2
-from  scipy.sparse import csr_matrix
 
 # This is 0 main function. The interaction between user and tool si performed here.
 
 print("\n Welcome to Link-State routing Tool based on Dijkstra!")
 
 selection = input("Select 0 if you want me to create a random graph for you. Press 1 if you want to upload it \n Type your selection and press enter: ")
-
 
 if selection == '0':
     is_valid = False
@@ -21,22 +18,8 @@ if selection == '0':
 
     rand_sparse = create_random_sparse(num_nodes) 
     graph = Graph(rand_sparse)
-    G = graph.draw_graph()
-    G2 = graph.dijkstra()
-
-    print(type(G))
-    print(type(G2))
-    img = nx.adjacency_matrix(G, weight = 'weight')
-    print("matriz de adyacencia sin ser ndarray")
-    print(img)
-
-    img = csr_matrix.todense(img)
-    print("matriz en versión densa")
-    print(img)
-
-    print(img.shape)
-    
-    cv2.imshow("loca", img)
+    graph.draw_graph()
+    graph.dijkstra()
 
 else:
     is_valid = False

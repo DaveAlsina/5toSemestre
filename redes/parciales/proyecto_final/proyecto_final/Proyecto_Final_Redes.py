@@ -115,16 +115,12 @@ class Graph(Node):
         G = nx.convert_matrix.from_numpy_array(self.sparse2adj(self.sparse))
         pos = nx.spring_layout(G)
         labels = {}
-
         for i in self.sparse:
             labels.setdefault((i[0],i[1]),i[2])
-
         plt.title("Graph visualization")
         nx.draw(G, pos, with_labels = True)
         nx.draw_networkx_edge_labels(G, pos, edge_labels = labels)
         plt.show()
-
-        return G
         
     def routing_table(self):
         # determines and prints the routing table the graph
@@ -154,8 +150,8 @@ class Graph(Node):
         G = nx.convert_matrix.from_numpy_array(self.sparse2adj(route_m))
         plt.title("Final Tree")
         nx.draw(G, with_labels = True)
-
         plt.show()
+
         return G
     
     def dijkstra(self):
@@ -194,12 +190,13 @@ class Graph(Node):
         # total time taken
         print("\n ----------------- Execution Time ---------------------- \n")
 
-        print("Runtime of Dijkstra's Algorithm is {end - start}".format(end, start))
+        print("Runtime of Dijkstra's Algorithm is {}".format(end - start))
 
         print("\n ----------------- Number of Iterations ---------------- \n")
         print("Dijkstra took {0} iterations to finish".format(it))
 
-        return self.draw_tree(self.routing_table())
+        grafito = self.draw_tree(self.routing_table())
+        return grafito
 
 
 def create_random_sparse(nodos = 15):

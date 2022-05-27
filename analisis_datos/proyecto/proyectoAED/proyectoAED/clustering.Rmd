@@ -124,11 +124,9 @@ km_clusters$tot.withinss
 km_clusters$betweenss
 ```
 
-
-
-
-
-
+```{r}
+print(km_clusters$betweenss/km_clusters$totss)
+```
 
 
 
@@ -172,6 +170,9 @@ km_clusters_std$tot.withinss
 km_clusters_std$betweenss
 ```
 
+```{r}
+print(km_clusters_std$betweenss/km_clusters_std$totss)
+```
 
 
 
